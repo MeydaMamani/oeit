@@ -17,3 +17,4 @@ Route::get('/', function () { return view('index'); });
 // Route::get('/dashboard', 'dashboard@index');
 Route::get('/dashboard', 'App\Http\Controllers\DashboardController@index');
 Route::get('/fed', 'App\Http\Controllers\PrematuroController@index');
+Route::get('/fed/list', 'App\Http\Controllers\PrematuroController@searchDni');

@@ -1,8 +1,8 @@
 <!-- Main Sidebar Container -->
-<aside class="main-sidebar sidebar-light elevation-4"> <!-- style="background-image: url('./img/sidebar-2.jpg')" -->
+<aside class="main-sidebar sidebar-light-primary elevation-4">
     <a href="#" class="brand-link">
         <img src="./img/logo2.png" alt="AdminLTE Logo" class="brand-image elevation-3 img-circle" style="opacity: .8">
-        <span class="brand-text">DEIT - PASCO</span>
+        <span class="brand-text text-white">DEIT - PASCO</span>
     </a>
 
     <!-- Sidebar -->
@@ -13,7 +13,7 @@
                 <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">Alexander Pierce</a>
+                <label class="d-block m-0">Alexander Pierce</label>
             </div>
         </div>
 
@@ -34,8 +34,8 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i><img src="{{ asset('./img/menu/fed.png') }}" width="30" alt="imagen-fed"></i>
-                        <p>FED <i class="right fas fa-angle-left"></i></p>
+                        <i><img src="{{ asset('./img/menu/fed1.png') }}" width="30" alt="imagen-fed"></i>
+                        <p class="ml-2">FED <i class="right fas fa-angle-left"></i></p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
@@ -107,7 +107,7 @@
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i><img src="{{ asset('./img/menu/tracing.png') }}" width="30" alt="imagen-seg"></i>
-                        <p>Seguimiento <i class="right fas fa-angle-left"></i></p>
+                        <p class="ml-2">Seguimiento <i class="right fas fa-angle-left"></i></p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
@@ -163,7 +163,7 @@
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i><img src="{{ asset('./img/menu/indicartors.png') }}" width="30" alt="imagen-ind"></i>
-                        <p>Indicadores Diresa <i class="right fas fa-angle-left"></i></p>
+                        <p class="ml-2">Indicadores Diresa <i class="right fas fa-angle-left"></i></p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
@@ -183,7 +183,7 @@
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i><img src="{{ asset('./img/menu/covid.png') }}" width="30" alt="imagen-covid"></i>
-                        <p>Covid 19 <i class="right fas fa-angle-left"></i></p>
+                        <p class="ml-2">Covid 19 <i class="right fas fa-angle-left"></i></p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
@@ -221,7 +221,7 @@
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i><img src="{{ asset('./img/menu/padron.png') }}" width="30" alt="imagen-pn"></i>
-                        <p>Padrón Nominal <i class="right fas fa-angle-left"></i></p>
+                        <p class="ml-2">Padrón Nominal <i class="right fas fa-angle-left"></i></p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
@@ -241,7 +241,7 @@
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i><img src="{{ asset('./img/menu/analytics.png') }}" width="30" alt="imagen-analy"></i>
-                        <p>Tablero <i class="right fas fa-angle-left"></i></p>
+                        <p class="ml-2">Tablero <i class="right fas fa-angle-left"></i></p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">

@@ -31,8 +31,22 @@
         <!-- summernote -->
         <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
 
-        <link rel="stylesheet" href="./css/styleFed.css">
-        <link rel="stylesheet" href="./css/style.css">
+        <link rel="stylesheet" href="{{ asset('./css/styleFed.css') }}"/>
+        <link rel="stylesheet" href="{{ asset('./css/style.css') }}"/>
+
+        <!-- JQUERY -->
+        <script src="./js/jquery-3.6.0.min.js"></script>
+
+        <!-- link paginacion -->
+        <link rel="stylesheet" href="./plugins/footable/css/footable.core.css">
+        <link rel="stylesheet" href="./css/style_footable.css">
+
+
+        <!-- VUE -->
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
     </head>
     <body class="hold-transition sidebar-mini layout-fixed">
         <div class="wrapper">
@@ -64,8 +78,8 @@
         <!-- Sparkline -->
         <script src="plugins/sparklines/sparkline.js"></script>
         <!-- JQVMap -->
-        <script src="plugins/jqvmap/jquery.vmap.min.js"></script>
-        <script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+        {{-- <script src="plugins/jqvmap/jquery.vmap.min.js"></script> --}}
+        {{-- <script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script> --}}
         <!-- jQuery Knob Chart -->
         <script src="plugins/jquery-knob/jquery.knob.min.js"></script>
         <!-- daterangepicker -->
@@ -83,5 +97,8 @@
         <script src="dist/js/demo.js"></script>
         <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
         <script src="dist/js/pages/dashboard.js"></script>
+
+        <script src="./plugins/footable/js/footable-init.js"></script>
+        <script src="./plugins/footable/js/footable.all.min.js"></script>
     </body>
 </html>
