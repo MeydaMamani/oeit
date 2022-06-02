@@ -45,19 +45,19 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{ url('/prematuro') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Niños Prematuros (CG03)</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{ url('/tmz') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Tamizaje Neonatal (CG02)</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{ url('/4meses') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Niños 4 Meses (CG04)</p>
                                     </a>

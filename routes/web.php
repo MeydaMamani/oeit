@@ -1,20 +1,22 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use App\Http\Controllers\FedController;
+use App\Http\Controllers\MainController;
+use App\Http\Controllers\DashboardController;
 
 Route::get('/', function () { return view('index'); });
 // Route::get('/dashboard', 'dashboard@index');
-Route::get('/dashboard', 'App\Http\Controllers\DashboardController@index');
-Route::get('/fed', 'App\Http\Controllers\PrematuroController@index');
-Route::get('/fed/list', 'App\Http\Controllers\PrematuroController@searchDni');
+Route::get('/dashboard', [DashboardController::class, 'index']);
+Route::get('/prematuro', [FedController::class, 'index']);
+Route::post('/prematuro/list', [FedController::class, 'listByMonth']);
+Route::get('/prematuro/print', [FedController::class, 'printPrematuro']);
+
+Route::get('prov/', [MainController::class, 'province']);
+Route::get('distr/', [MainController::class, 'district']);
+
+Route::get('/tmz', [FedController::class, 'indexTmz']);
+Route::post('/tmz/list', [FedController::class, 'listByMonthTmz']);
+
+Route::get('/4meses', [FedController::class, 'indexSuple']);
+Route::post('/4meses/list', [FedController::class, 'listByMonthTmz']);

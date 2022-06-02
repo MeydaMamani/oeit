@@ -1,26 +1,94 @@
-.font-8 { font-size: 8px; }
-.font-9 { font-size: 9px; }
-.font-10 { font-size: 10px; }
-.font-11 { font-size: 11px; }
-.font-12 { font-size: 12px; }
-.font-13 { font-size: 13px; }
-.font-14 { font-size: 14px; }
-.font-15 { font-size: 15px; }
-.font-16 { font-size: 16px; }
-.font-17 { font-size: 17px; }
-.font-18 { font-size: 18px; }
-.font-19 { font-size: 19px; }
-.font-20 { font-size: 20px; }
-.font-21 { font-size: 21px; }
-.font-22 { font-size: 22px; }
-.font-23 { font-size: 23px; }
-.font-24 { font-size: 24px; }
-.font-25 { font-size: 25px; }
-.font-26 { font-size: 26px; }
-.font-27 { font-size: 27px; }
-.font-28 { font-size: 28px; }
-.font-29 { font-size: 29px; }
-.font-30 { font-size: 30px; }
+.font-8 {
+    font-size: 8px;
+}
+
+.font-9 {
+    font-size: 9px;
+}
+
+.font-10 {
+    font-size: 10px;
+}
+
+.font-11 {
+    font-size: 11px;
+}
+
+.font-12 {
+    font-size: 12px;
+}
+
+.font-13 {
+    font-size: 13px;
+}
+
+.font-14 {
+    font-size: 14px;
+}
+
+.font-15 {
+    font-size: 15px;
+}
+
+.font-16 {
+    font-size: 16px;
+}
+
+.font-17 {
+    font-size: 17px;
+}
+
+.font-18 {
+    font-size: 18px;
+}
+
+.font-19 {
+    font-size: 19px;
+}
+
+.font-20 {
+    font-size: 20px;
+}
+
+.font-21 {
+    font-size: 21px;
+}
+
+.font-22 {
+    font-size: 22px;
+}
+
+.font-23 {
+    font-size: 23px;
+}
+
+.font-24 {
+    font-size: 24px;
+}
+
+.font-25 {
+    font-size: 25px;
+}
+
+.font-26 {
+    font-size: 26px;
+}
+
+.font-27 {
+    font-size: 27px;
+}
+
+.font-28 {
+    font-size: 28px;
+}
+
+.font-29 {
+    font-size: 29px;
+}
+
+.font-30 {
+    font-size: 30px;
+}
 
 .main-sidebar {
     background-image: url('../img/sidebar.jpg');
@@ -46,8 +114,52 @@
     min-height: 0 !important;
 }
 
-/* PARA PAGINACION */
+.info-box .info-box-content {
+    padding: 0;
+}
 
+.select2-container .select2-selection--single .select2-selection__rendered {
+    padding-left: 0;
+    padding-right: 7px;
+    font-size: 12px;
+}
+
+.select2-container--default .select2-results__option[aria-selected=true],
+.select2-container--default .select2-results__option {
+    font-size: 12px;
+}
+
+.select2-search--dropdown .select2-search__field {
+    font-size: 12px;
+    height: 25px;
+    padding: 5px 8px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered, select.form-control {
+    line-height: 18px;
+}
+
+select.form-control {
+    font-size: 12px;
+    height: 29px;
+    padding: 5px 8px;
+    border: 1px solid #aaa;
+}
+
+.select-container--default .select2-selection--single .select2-selection__arrow b {
+    border-color: #888 transparent transparent transparent;
+    border-style: solid;
+    border-width: 5px 4px 0 4px;
+    height: 0;
+    left: 50%;
+    margin-left: -4px;
+    margin-top: -2px;
+    position: absolute;
+    top: 50%;
+    width: 0;
+}
+
+/* PARA PAGINACION */
 .footable>tfoot .pagination {
     float: none !important;
     justify-content: center;
@@ -62,14 +174,22 @@
     transform: translateY(-50%);
 }
 
+/* PARA BARRA DE PROGRESO */
+
+.info-box .progress {
+    height: 4px;
+}
+
 /* PARA TABLAS */
 
-.table td, .table th {
+.table td,
+.table th {
     border-color: #f3f1f1;
     padding: 4px;
 }
 
-.table th, .table thead th {
+.table th,
+.table thead th {
     font-weight: 500
 }
 
@@ -77,12 +197,12 @@
     background: #f2f4f8
 }
 
-.table-responsive#prematuro {
-    height: 345px;
+.table-responsive#prematuro, #tmz_neonatal {
+    height: 300px;
     overflow: auto;
 }
 
-#prematuro thead tr th#patient{
+#prematuro thead tr th#patient {
     position: sticky;
     top: -1px;
     z-index: 10;
@@ -126,7 +246,7 @@
     position: sticky;
     top: -1px;
     z-index: 10;
-    background: #f6f6fb !important;
+    background: white !important;
 }
 
 #prematuro_resume {
@@ -134,3 +254,17 @@
     overflow: auto;
 }
 
+#tmz_neonatal thead tr th {
+    position: sticky;
+    top: -1px;
+    z-index: 10;
+    background: #AED6F1 !important;
+}
+
+#tmz_neonatal thead tr th#color_neonatal_head {
+    background: #dae9f3 !important;
+}
+
+#tmz_neonatal thead tr th#color_neonatal_head2 {
+    background: #91b9d5 !important;
+}

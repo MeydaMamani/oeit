@@ -31,6 +31,10 @@
         <!-- summernote -->
         <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
 
+        <!-- Select2 -->
+        <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
+        <link rel="stylesheet" href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+
         <link rel="stylesheet" href="{{ asset('./css/styleFed.css') }}"/>
         <link rel="stylesheet" href="{{ asset('./css/style.css') }}"/>
 
@@ -41,12 +45,9 @@
         <link rel="stylesheet" href="./plugins/footable/css/footable.core.css">
         <link rel="stylesheet" href="./css/style_footable.css">
 
-
         <!-- VUE -->
-        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
+        <script src="./plugins/vue/vue.js"></script>
     </head>
     <body class="hold-transition sidebar-mini layout-fixed">
         <div class="wrapper">
@@ -64,7 +65,7 @@
         <!-- ./wrapper -->
 
         <!-- jQuery -->
-        <script src="plugins/jquery/jquery.min.js"></script>
+        {{-- <script src="plugins/jquery/jquery.min.js"></script> --}}
         <!-- jQuery UI 1.11.4 -->
         <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
         <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -97,6 +98,12 @@
         <script src="dist/js/demo.js"></script>
         <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
         <script src="dist/js/pages/dashboard.js"></script>
+
+        <!-- Select2 -->
+        <script src="plugins/select2/js/select2.full.min.js"></script>
+        <script>
+            $('.select2').select2();
+        </script>
 
         <script src="./plugins/footable/js/footable-init.js"></script>
         <script src="./plugins/footable/js/footable.all.min.js"></script>

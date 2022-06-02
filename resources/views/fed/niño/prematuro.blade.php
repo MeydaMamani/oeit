@@ -7,7 +7,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-sm-8">
-                            <h5 class="mb-0">Niños Prematuros CG03 - Mayo 2022</h5>
+                            <h5 class="mb-0">Niños Prematuros CG03 - <span class="name_mes">[[ nameMonth ]]</span> <span class="name_anio">[[ anio ]]</span></h5>
                         </div>
                         <div class="col-sm-4">
                             <ol class="breadcrumb float-sm-right font-14">
@@ -32,104 +32,82 @@
                     </div>
                     <div class="row">
                         <div class="col-md-5 row pl-3">
-                            <div class="info-box col-md-4">
-                                <div class="info-box-content">
-                                    <span class="info-box-text font-13 text-center mb-2">Cantidad Registros</span>
-                                    <div class="row">
-                                        <div class="col-md-6 justify-content-center align-items-center d-flex">
-                                            <img src="./img/user_cant.png" width="33" alt="icon cantidad total">
+                            <div class="col-md-4 col-sm-4">
+                                <div class="info-box elevation-2 p-1">
+                                    <div class="info-box-content">
+                                        <span class="info-box-text font-13 text-center">Cantidad Registros</span>
+                                        <div class="d-flex">
+                                            <div class="col-md-6 justify-content-center align-items-center d-flex">
+                                                <img src="./img/user_cant.png" width="33" alt="icon cantidad total">
+                                            </div>
+                                            <span class="info-box-number col-md-6 text-secondary font-23">[[ total ]]</span>
                                         </div>
-                                        <span class="info-box-number col-md-6 text-secondary font-23">[[ total ]]</span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="info-box col-md-4">
-                                <div class="info-box-content">
-                                    <span class="info-box-text font-13 text-center mb-2">Suplementados</span>
-                                    <div class="row">
-                                        <div class="col-md-6 justify-content-center align-items-center d-flex">
-                                            <img src="./img/boy.png" width="33" alt="icon cantidad total">
+                            <div class="col-md-4 col-sm-4">
+                                <div class="info-box elevation-2 p-1">
+                                    <div class="info-box-content">
+                                        <span class="info-box-text font-13 text-center">Suplementados</span>
+                                        <div class="d-flex">
+                                            <div class="col-md-6 justify-content-center align-items-center d-flex">
+                                                <img src="./img/boy.png" width="33" alt="icon cantidad total">
+                                            </div>
+                                            <span class="info-box-number col-md-6 text-success font-23">[[ suplementado ]]</span>
                                         </div>
-                                        <span class="info-box-number col-md-6 text-success font-23">[[ suplementado ]]</span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="info-box col-md-4">
-                                <div class="info-box-content">
-                                    <span class="info-box-text font-13 text-center mb-2">No Suplementados</span>
-                                    <div class="row">
-                                        <div class="col-md-6 justify-content-center align-items-center d-flex">
-                                            <img src="./img/boy_x.png" width="33" alt="icon cantidad total">
+                            <div class="col-md-4 col-sm-4">
+                                <div class="info-box elevation-2 p-1">
+                                    <div class="info-box-content">
+                                        <span class="info-box-text font-13 text-center">No Suplementados</span>
+                                        <div class="d-flex">
+                                            <div class="col-md-6 justify-content-center align-items-center d-flex">
+                                                <img src="./img/boy_x.png" width="33" alt="icon cantidad total">
+                                            </div>
+                                            <span class="info-box-number col-md-6 text-danger font-23">[[ no_suplementado ]]</span>
                                         </div>
-                                        <span class="info-box-number col-md-6 text-danger font-23">[[ no_suplementado ]]</span>
                                     </div>
                                 </div>
                             </div>
                             {{-- avance por region --}}
-                            <div class="info-box col-md-4">
-                                <div class="info-box-content">
-                                    <div class="row">
-                                        <div class="col-md-6 justify-content-center text-center">
-                                            <img src="./img/dac.png" width="65" alt="icon cantidad total">
+                            <div class="col-md-4 col-sm-4" v-for="(format, key) in advanceReg">
+                                <div class="info-box elevation-2">
+                                    <div class="info-box-content">
+                                        <div class="d-flex">
+                                            <div class="col-md-6 justify-content-center text-center p-0">
+                                                <img :src='"./img/" + format.NOMBRE_PROV + ".png"' width="50" alt="icon cantidad total">
+                                            </div>
+                                            <span class="info-box-number text-muted col-md-6">[[ format.ADVANCE ]]%</span>
                                         </div>
-                                        <span class="info-box-number text-muted col-md-6">1,410</span>
-                                    </div>
-                                    {{-- <div class="progress">
-                                        <div class="progress-bar bg-danger wow animated progress-animated" id="progress_dac" style="width: 50%; height:6px;" role="progressbar"></div>
-                                    </div> --}}
-                                    <div class="progress">
-                                        <div class="progress-bar bg-primary progress-bar-striped" role="progressbar"
-                                             aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                          <span class="sr-only">40% Complete (success)</span>
+                                        <div class="progress">
+                                            <template v-if="format.ADVANCE <= 49">
+                                                <div class="progress-bar bg-danger wow animated progress-animated" :style='"width:" + format.ADVANCE + "%"' role="progressbar"></div>
+                                            </template>
+                                            <template v-else-if="format.ADVANCE > 49 && format.AVANCE <= 59">
+                                                <div class="progress-bar bg-warning wow animated progress-animated" :style='"width:" + format.ADVANCE + "%"' role="progressbar"></div>
+                                            </template>
+                                            <template v-else>
+                                                <div class="progress-bar bg-success wow animated progress-animated" :style='"width:" + format.ADVANCE + "%"' role="progressbar"></div>
+                                            </template>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="info-box col-md-4">
-                                <div class="info-box-content">
-                                    <div class="row">
-                                        <div class="col-md-6 justify-content-center text-center">
-                                            <img src="./img/oxa.png" width="65" alt="icon cantidad total">
-                                        </div>
-                                        <span class="info-box-number text-muted col-md-6">55.67%</span>
-                                    </div>
-                                    <div class="progress">
-                                        <div class="progress-bar bg-danger wow animated progress-animated" id="progress_dac" style="width: 50%; height:6px;" role="progressbar"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="info-box col-md-4">
-                                <div class="info-box-content">
-                                    <div class="row">
-                                        <div class="col-md-6 justify-content-center text-center">
-                                            <img src="./img/pasco.png" width="65" alt="icon cantidad total">
-                                        </div>
-                                        <span class="info-box-number text-muted col-md-6">1,410</span>
-                                    </div>
-                                    <div class="progress">
-                                        <div class="progress-bar bg-danger wow animated progress-animated" id="progress_dac" style="width: 50%; height:6px;" role="progressbar"></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-1 text-center p-1">
-                            <form action="print_pr3m4tur0.php" method="POST">
-                                <input hidden name="red_print" id="red_print" value="">
-                                <input hidden name="distrito_print" id="distrito_print" value="">
-                                <input hidden name="anio_print" id="anio_print" value="">
-                                <input hidden name="mes_print" id="mes_print" value="">
-                                <button type="submit" id="export_data" name="exportarCSV" class="btn btn-outline-success m-1 btn-sm mb-2"><i class="fa fa-print"></i> Imprimir</button>
-                            </form>
-                            <button type="button" class="btn btn-outline-danger m-1 btn-sm btn_information mb-2" data-toggle="modal" data-target="#ModalInformacion"><i class="fa fa-list"></i> Ficha</button>
-                            <a href="{{ url('/dashboard') }}" class="btn btn-outline-secondary btn-sm m-1 mb-2"><ion-icon name="arrow-round-back"></ion-icon> Regresar</a>
-                            <button class="btn btn-outline-primary m-1 btn-sm mb-2" id="btn_all"><i class='fa fa-check'></i> Ver Todo</button>
+                        <div class="col-md-1 col-sm-4 text-center p-1">
+                            <button type="submit" id="export_data" name="exportarCSV" class="btn btn-outline-success m-1 btn-sm mb-2 font-11" @click="PrintNominal"><i class="fa fa-print"></i> Imprimir</button>
+                            <button type="button" class="btn btn-outline-danger m-1 btn-sm btn_information mb-2 font-11" data-toggle="modal" data-target="#ModalInformacion"><i class="fa fa-list"></i> Ficha</button>
+                            <a href="{{ url('/dashboard') }}" class="btn btn-outline-secondary btn-sm m-1 mb-2 font-11"><i class="fa fa-reply"></i> Regresar</a>
+                            <button class="btn btn-outline-primary m-1 btn-sm mb-2 font-11" id="btn_all"><i class="fa fa-check"></i> Ver Todo</button>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4 col-sm-4">
                             <div id="table_resume">
                                 <div class="table-responsive" id="prematuro_resume">
-                                    <table class="table table-hover table-bordered">
+                                    <table class="table table-hover table-bordered table-striped">
                                         <thead>
-                                            <tr class="font-10 text-center" style="background: #e0eff5;">
+                                            <tr class="font-9 text-center" style="background: #e0eff5;">
                                                 <th class="align-middle">#</th>
                                                 <th class="align-middle">Provincia</th>
                                                 <th class="align-middle">Distrito</th>
@@ -139,42 +117,54 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-
+                                            <tr v-for="(format, key) in listsResum" class="font-8">
+                                                <td class="align-middle text-center">[[ key+1 ]]</td>
+                                                <td class="align-middle">[[ format.NOMBRE_PROV ]]</td>
+                                                <td class="align-middle">[[ format.NOMBRE_DIST ]]</td>
+                                                <td class="align-middle text-center">[[ format.NUMERADOR ]]</td>
+                                                <td class="align-middle text-center">[[ format.DENOMINADOR ]]</td>
+                                                <template v-if="format.AVANCE > 59">
+                                                    <td class="bg-success text-white align-middle text-center">[[ format.AVANCE ]] %</td>
+                                                </template>
+                                                <template v-else-if="format.AVANCE <= 49">
+                                                    <td class="bg-danger text-white align-middle text-center">[[ format.AVANCE ]] %</td>
+                                                </template>
+                                                <template v-else-if="format.AVANCE > 49 && format.AVANCE <= 59">
+                                                    <td class="bg-warning text-white align-middle text-center">[[ format.AVANCE ]] %</td>
+                                                </template>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-2 col-sm-4">
                             <div class="card" style="border-color: #337ab7;">
                                 <div class="card-body p-2">
-                                    <form method="post" id="formulario" name="f1">
-                                        <div class="col-md-12 mb-1 filter_fed">
-                                            <select class="form-select" name="red" id="red" onchange="cambia_distrito();" aria-label="Default select example">
-                                                <option value="0" selected>Seleccione Red</option>
-                                                <option value="1">DANIEL ALCIDES CARRION</option>
-                                                <option value="2">OXAPAMPA</option>
-                                                <option value="3">PASCO</option>
-                                                <option value="4">TODOS</option>
+                                    <form method="post" id="formulario">
+                                        <div class="col-md-12 mb-1 p-0">
+                                            <select class="form-control select2" style="width: 100%;" v-model="red" name="red" @change="filtersDistricts" v-select2>
+                                                <option value="">Seleccione Red</option>
+                                                <option v-for="format in provinces" :value="format.Codigo_Red">[[ format.Red ]]</option>
                                             </select>
                                         </div>
-                                        <div class="col-md-12 mb-1 filter_fed">
-                                            <select class="select_gestante form-select" name="distrito" id="distrito">
-                                                <option value="-" selected>Seleccione Distrito</option>
+                                        <div class="col-md-12 mb-1 p-0">
+                                            <select class="form-control select2" data-dropdown-css-class="select2-danger" style="width: 100%;" v-model="distrito" name="distrito" id="distrito" v-select2>
+                                                <option value="">Seleccione Distrito</option>
+                                                <option v-for="format in districts" :value="format.Distrito">[[ format.Distrito ]]</option>
                                             </select>
                                         </div>
-                                        <div class="col-md-12 mb-1 filter_fed">
-                                            <select class="form-select" name="anio" id="anio">
-                                                <option value="0">Seleccione año</option>
+                                        <div class="col-md-12 mb-1 p-0">
+                                            <select class="form-control select2" data-dropdown-css-class="select2-primary" style="width: 100%;" v-model="anio" name="anio" v-select2>
+                                                <option value="">Seleccione año</option>
                                                 <option value="2019">2019</option>
                                                 <option value="2020">2020</option>
                                                 <option value="2021">2021</option>
                                                 <option value="2022">2022</option>
-                                                <option value="2023">2023</option>
                                             </select>
                                         </div>
-                                        <div class="col-md-12 mb-1 filter_fed">
-                                            <select class="form-select" name="mes" id="mes">
+                                        <div class="col-md-12 mb-1 p-0">
+                                            <select class="form-control select2" data-dropdown-css-class="select2-primary" style="width: 100%;" v-model="mes" name="mes" v-select2>
                                                 <option value="0">Seleccione mes</option>
                                                 <option value="1">ENERO</option>
                                                 <option value="2">FEBRERO</option>
@@ -190,10 +180,10 @@
                                                 <option value="12">DICIEMBRE</option>
                                             </select>
                                         </div>
-                                        <div class="col-md-12">
+                                        <div class="col-md-12 p-0">
                                             <div class="d-flex justify-content-center">
-                                                <button class="btn btn-primary btn-sm m-1" type="button" onclick="buscarFed();"><i class="mdi mdi-magnify"></i> Buscar</button>
-                                                <button class="btn btn-secondary btn-sm m-1" type="button" id="clear2"><i class="mdi mdi-broom"></i> Limpiar</button>
+                                                <button class="btn btn-primary btn-sm m-1 font-11" id="search" type="button" @click="listPremature"><i class="fa fa-search"></i> Buscar</button>
+                                                <button class="btn btn-secondary btn-sm m-1 font-11" type="button" id="clear2"><i class="fa fa-broom"></i> Limpiar</button>
                                             </div>
                                         </div>
                                     </form>
@@ -206,13 +196,13 @@
                         <div class="col-md-2 pl-3"><br>
                             <div class="card p-0">
                                 <div class="card-body p-1 text-center">
-                                    <input type="text" class="knob" value="10" data-width="90" data-height="90" data-fgColor="#add" data-readonly="true">
+                                    <input type="text" class="knob" value="40" data-readonly="true" data-width="90" data-height="90" data-fgColor="#00c0ef">
                                     <div class="knob-label text-primary">Avance</div>
                                 </div>
                             </div>
                             <div class="card p-0">
                                 <div class="card-body p-1">
-                                    <div class="row">
+                                    <div class="d-flex">
                                         <div class="col-md-6 pt-1 text-center">
                                             <h3 class="total text-success"><b>[[ total ]]</b>
                                             </h3>
@@ -228,10 +218,10 @@
                             </div>
                         </div>
                         <!-- TABLA NOMINAL -->
-                        <div class="col-md-10">
+                        <div class="col-md-10 mb-1">
                             <div id="mitable_all" class="text-center">
                                 <div class="table-responsive table_all" id="prematuro">
-                                    <table id="demo-foo-addrow2" class="table table-hover" data-page-size="20" data-limit-navigation="10">
+                                    <table id="demo-foo-addrow2" class="table table-hover table-striped" data-page-size="20" data-limit-navigation="10">
                                         <thead>
                                             <tr class="font-10 text-center" style="background: #e0eff5;">
                                                 <th class="align-middle">#</th>
@@ -269,7 +259,12 @@
                                                 <td class="align-middle text-center">[[ format.FECHA_NACIMIENTO_NINO ]]</td>
                                                 <td class="align-middle text-center">[[ format.TIPO_SEGURO ]]</td>
                                                 <td class="align-middle text-center">[[ format.MENOR_VISITADO ]]</td>
-                                                <td class="align-middle text-center">[[ format.SUPLEMENTADO ]]</td>
+                                                <template v-if="format.SUPLEMENTADO == 'SI'">
+                                                    <td class="align-middle text-center"><span class="badge bg-success">[[ format.SUPLEMENTADO ]]</span></td>
+                                                </template>
+                                                <template v-else>
+                                                    <td class="align-middle text-center"><span class="badge bg-danger">[[ format.SUPLEMENTADO ]]</span></td>
+                                                </template>
                                                 <td class="align-middle text-center">[[ format.BAJO_PESO_PREMATURO ]]</td>
                                                 <td class="align-middle text-center">[[ format.Establecimiento ]]</td>
                                             </tr>
@@ -306,6 +301,12 @@
         </div>
     </div>
     <script src="./js/prematuro.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#search").click();
+        });
+    </script>
+
 @endsection
 
 @section('javascript')
