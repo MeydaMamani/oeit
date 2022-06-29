@@ -45,7 +45,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ url('/prematuro') }}" class="nav-link">
+                                    <a href="{{ url('/premature') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Niños Prematuros (CG03)</p>
                                     </a>
@@ -57,19 +57,19 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ url('/4meses') }}" class="nav-link">
+                                    <a href="{{ url('/suple') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Niños 4 Meses (CG04)</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{ url('/iniOport') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Incio Oportuno (CG05)</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{ url('/cred') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Cred Avance Mensual (CG06)</p>
                                     </a>
@@ -83,13 +83,13 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{ url('/bateria') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Bateria Completa (CG01)</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{ url('/tratamiento') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Tmz e Inicio de Tratamiento por Violencia</p>
                                     </a>
@@ -101,6 +101,26 @@
                                     </a>
                                 </li>
                             </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fa fa-user-nurse nav-icon"></i>
+                                <p>Medicamentos</p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ url('/professionals') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Cantidad de Profesionales EPP(2020 FED)</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('/professionals') }}" class="nav-link">
+                                <i class="fa fa-user-nurse nav-icon"></i>
+                                <p>Sis-Covid</p>
+                            </a>
                         </li>
                     </ul>
                 </li>

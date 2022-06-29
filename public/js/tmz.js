@@ -1,3 +1,17 @@
+Vue.directive('select2', {
+    inserted(el) {
+        $(el).on('select2:select', () => {
+            const event = new Event('change', { bubbles: true, cancelable: true });
+            el.dispatchEvent(event);
+        });
+
+        $(el).on('select2:unselect', () => {
+            const event = new Event('change', {bubbles: true, cancelable: true})
+            el.dispatchEvent(event)
+        })
+    },
+});
+
 const appPrematuros = new Vue({
     delimiters: ['[[', ']]'],
     el: '#appTmz',
@@ -12,22 +26,29 @@ const appPrematuros = new Vue({
         advanceReg: [],
         provinces: [],
         districts: {},
+        date_pn: '',
+        date_his: '',
         red: '',
         distrito: '',
         anio: '',
         mes: '',
+        nameMonth: '',
+        nameYear: '',
     },
     created: function() {
-        // this.listPremature();
         this.filtersProv();
+        this.datePn();
     },
     methods: {
-        listPremature: function(e) {
-            const date = new Date();
-            this.anio = date.getFullYear(); this.mes = date.getMonth();
-            const currentData = { "red": "TODOS", "distrito": "TODOS", "anio": this.anio, "mes": this.mes }
+        listTmz: function() {
+            $(".nominalTable").removeAttr("id");
+            $(".nominalTable").attr("id","tmz_neonatal");
+            this.cumple=0; this.no_cumple=0; this.total=0;
+            const getDate = new Date();
+            const currentData = { "red": "TODOS", "distrito": "TODOS", "anio": getDate.getFullYear(), "mes": getDate.getMonth()+1 }
             const formData = $("#formulario").serialize();
             this.red == '' ? data = currentData : data = formData;
+
             axios({
                 method: 'POST',
                 url: 'tmz/list',
@@ -35,7 +56,6 @@ const appPrematuros = new Vue({
             })
             .then(response => {
                 this.lists = response.data[0];
-                console.log(this.lists);
                 this.listsResum = response.data[1];
                 this.advanceReg = response.data[2];
                 for (let i = 0; i < this.lists.length; i++) {
@@ -53,8 +73,28 @@ const appPrematuros = new Vue({
                     a % 1 != 0 ? this.advanceReg[k].ADVANCE = a.toFixed(1) : this.advanceReg[k].ADVANCE = a;
                 }
 
-                this.avance = Math.round((this.cumple / this.total) * 100);
-                document.getElementById("avance").value = parseInt(this.avance);
+                this.anio == '' ? this.nameYear = getDate.getFullYear() : this.nameYear = this.anio;
+                this.mes == '' ? this.mes = getDate.getMonth() + 1 : this.mes;
+                this.nameMonth = new Intl.DateTimeFormat('es-ES', { month: 'long'}).format( getDate.setMonth(this.mes - 1));
+                this.nameMonth = this.nameMonth.charAt(0).toUpperCase() + this.nameMonth.slice(1);
+
+                this.avance = ((this.cumple / this.total) * 100).toFixed(1);
+                $('.knob').val(this.avance + '%').trigger('change');
+                $('.footable-page a').filter('[data-page="0"]').trigger('click');
+
+            }).catch(e => {
+                this.errors.push(e)
+            })
+        },
+
+        datePn: function() {
+            axios.post('pn')
+            .then(respuesta => {
+                this.date_pn = respuesta.data[0].DATE_MODIFY;
+                getDate = new Date();
+                this.date_his = getDate.toISOString().split('T')[0];
+
+                setTimeout(() => $('.show-tick').selectpicker('refresh'));
 
             }).catch(e => {
                 this.errors.push(e)
@@ -62,26 +102,63 @@ const appPrematuros = new Vue({
         },
 
         filtersProv: function() {
-            axios.get('prov')
+            axios.post('prov')
             .then(respuesta => {
                 this.provinces = respuesta.data;
-                // setTimeout(() => $('.show-tick').selectpicker('refresh'));
+                $("#distrito").change();
+                setTimeout(() => $('.show-tick').selectpicker('refresh'));
+
             }).catch(e => {
                 this.errors.push(e)
             })
         },
 
         filtersDistricts() {
-            // $("#distrito").empty();
-            axios.get('distr', { params: { 'id': this.red } })
+            this.districts = [];
+            axios({
+                method: 'POST',
+                url: 'distr',
+                data: { "id": this.red },
+            })
             .then(respuesta => {
                 this.districts = respuesta.data;
-                console.log(this.districts);
-                // setTimeout(() => $('.show-tick').selectpicker('refresh'));
+                setTimeout(() => $('.show-tick').selectpicker('refresh'));
 
             }).catch(e => {
                 this.errors.push(e)
             })
+        },
+
+        listNoSuple() {
+            $(".nominalTable").removeAttr("id");
+            $(".nominalTable").attr("id","no_cumplen");
+            this.listNoSuplement = [];
+            for (let i = 0; i < this.lists.length; i++) {
+                if(this.lists[i].TAMIZADO == 'NO'){
+                    this.listNoSuplement.push(this.lists[i]);
+                }
+            }
+            this.lists = this.listNoSuplement;
+            $('#demo-foo-addrow2').footable();
+            $('#demo-foo-addrow2').data('footable').redraw();
+            $('#demo-foo-filtering').data('footable').redraw();
+            $('#demo-foo-filtering').footable();
+            $('#demo-foo-addrow2').footable();
+            $('.table').footable();
+        },
+
+        PrintNominal: function(){
+            var red = $('#red').val();
+            var dist = $('#distrito').val();
+            var anio = $('#anio').val();
+            var mes = $('#mes').val();
+
+            const getDate = new Date();
+            red == '' ? red = "TODOS" : red;    dist == '' ? dist = "TODOS" : dist;
+            anio == '' ? anio = getDate.getFullYear() : anio;     mes == '' ? mes = getDate.getMonth() : mes;
+            url_ = window.location.origin + window.location.pathname + '/print?r=' + (red) + '&d=' + (dist) + '&a=' + (anio)
+            + '&m=' + (mes)  + '&nameMonth=' + (this.nameMonth) + '&pn=' + (this.date_pn) + '&his=' + (this.date_his);
+            window.open(url_,'_blank');
         },
     }
 })

@@ -38,4 +38,13 @@ class MainController extends Controller
         $districts[] = $data;
         return response()->json($districts, 200);
     }
+
+    public function datePadronNominal() {
+        // DB::connection('BDHIS_MINSA')->table('MAESTRO_HIS_ESTABLECIMIENTO')
+        $query =DB::connection('BD_PADRON_NOMINAL')->table('NOMINAL_PADRON_NOMINAL')
+                    ->select((DB::raw('MAX(FECHA_MODIFICACION_REGISTRO) AS DATE_MODIFY')))
+                    ->get();
+
+        return response()->json($query, 200);
+    }
 }

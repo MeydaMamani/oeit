@@ -14,7 +14,7 @@ Vue.directive('select2', {
 
 const appPrematuros = new Vue({
     delimiters: ['[[', ']]'],
-    el: '#appPremature',
+    el: '#appProfessionals',
     data: {
         errors: [],
         lists: [],
@@ -26,8 +26,7 @@ const appPrematuros = new Vue({
         advanceReg: [],
         provinces: [],
         districts: {},
-        date_pn: '',
-        date_cnv: '',
+        date_his: '',
         red: '',
         distrito: '',
         anio: '',
@@ -37,18 +36,17 @@ const appPrematuros = new Vue({
     },
     created: function() {
         this.filtersProv();
-        this.datePn();
+        this.dateHis();
     },
     methods: {
-        listPremature: function() {
+        listProfessionals: function() {
             $(".nominalTable").removeAttr("id");
-            $(".nominalTable").attr("id","prematuro");
+            $(".nominalTable").attr("id","profesional");
             this.suplementado=0; this.no_suplementado=0; this.total=0;
             const getDate = new Date();
-            const currentData = { "red": "TODOS", "distrito": "TODOS", "anio": getDate.getFullYear(), "mes": getDate.getMonth()+1 }
+            const currentData = { "red": "TODOS", "distrito": "TODOS", "anio": getDate.getFullYear(), "mes": getDate.getMonth() }
             const formData = $("#formulario").serialize();
             this.red == '' ? data = currentData : data = formData;
-            console.log(this.red, '-', this.distrito, '-', this.anio, '-', this.mes);
 
             // if (this.red == '') { toastr.error('Seleccione una Red', null, { "closeButton": true, "progressBar": true }); }
             // else if (this.distrito == '') { toastr.error('Seleccione un Distrito', null, { "closeButton": true, "progressBar": true }); }
@@ -57,7 +55,7 @@ const appPrematuros = new Vue({
             // else{
                 axios({
                     method: 'POST',
-                    url: 'premature/list',
+                    url: 'suple/list',
                     data: data,
                 })
                 .then(response => {
@@ -105,20 +103,10 @@ const appPrematuros = new Vue({
             })
         },
 
-        datePn: function() {
-            axios.post('pn')
-            .then(respuesta => {
-                this.date_pn = respuesta.data[0].DATE_MODIFY;
-                getDate = new Date();
-                days=(getDate.getUTCDay()-1)*(-1);
-                getDate.setDate(getDate.getDate() + days);
-                this.date_cnv = getDate.toISOString().split('T')[0];
-
-                setTimeout(() => $('.show-tick').selectpicker('refresh'));
-
-            }).catch(e => {
-                this.errors.push(e)
-            })
+        dateHis: function() {
+            getDate = new Date();
+            this.date_his = getDate.toISOString().split('T')[0];
+            setTimeout(() => $('.show-tick').selectpicker('refresh'));
         },
 
         filtersDistricts() {
@@ -163,11 +151,9 @@ const appPrematuros = new Vue({
 
             const getDate = new Date();
             red == '' ? red = "TODOS" : red;    dist == '' ? dist = "TODOS" : dist;
-            anio == '' ? anio = getDate.getFullYear() : anio;     mes == '' ? mes = getDate.getMonth()+1 : mes;
-
-            console.log(red, dist, anio, mes);
+            anio == '' ? anio = getDate.getFullYear() : anio;     mes == '' ? mes = getDate.getMonth() : mes;
             url_ = window.location.origin + window.location.pathname + '/print?r=' + (red) + '&d=' + (dist) + '&a=' + (anio)
-            + '&m=' + (mes)  + '&nameMonth=' + (this.nameMonth) + '&pn=' + (this.date_pn) + '&cnv=' + (this.date_cnv);
+            + '&m=' + (mes-1)  + '&nameMonth=' + (this.nameMonth) + '&his=' + (this.date_his);
             window.open(url_,'_blank');
         },
     }

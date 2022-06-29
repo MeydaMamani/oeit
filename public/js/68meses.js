@@ -14,7 +14,7 @@ Vue.directive('select2', {
 
 const appPrematuros = new Vue({
     delimiters: ['[[', ']]'],
-    el: '#appPremature',
+    el: '#appIniciOportuno',
     data: {
         errors: [],
         lists: [],
@@ -27,7 +27,6 @@ const appPrematuros = new Vue({
         provinces: [],
         districts: {},
         date_pn: '',
-        date_cnv: '',
         red: '',
         distrito: '',
         anio: '',
@@ -40,15 +39,14 @@ const appPrematuros = new Vue({
         this.datePn();
     },
     methods: {
-        listPremature: function() {
+        listSuplementado: function() {
             $(".nominalTable").removeAttr("id");
-            $(".nominalTable").attr("id","prematuro");
+            $(".nominalTable").attr("id","cuatro_meses");
             this.suplementado=0; this.no_suplementado=0; this.total=0;
             const getDate = new Date();
-            const currentData = { "red": "TODOS", "distrito": "TODOS", "anio": getDate.getFullYear(), "mes": getDate.getMonth()+1 }
+            const currentData = { "red": "TODOS", "distrito": "TODOS", "anio": getDate.getFullYear(), "mes": getDate.getMonth() }
             const formData = $("#formulario").serialize();
             this.red == '' ? data = currentData : data = formData;
-            console.log(this.red, '-', this.distrito, '-', this.anio, '-', this.mes);
 
             // if (this.red == '') { toastr.error('Seleccione una Red', null, { "closeButton": true, "progressBar": true }); }
             // else if (this.distrito == '') { toastr.error('Seleccione un Distrito', null, { "closeButton": true, "progressBar": true }); }
@@ -57,7 +55,7 @@ const appPrematuros = new Vue({
             // else{
                 axios({
                     method: 'POST',
-                    url: 'premature/list',
+                    url: 'suple/list',
                     data: data,
                 })
                 .then(response => {
@@ -110,10 +108,7 @@ const appPrematuros = new Vue({
             .then(respuesta => {
                 this.date_pn = respuesta.data[0].DATE_MODIFY;
                 getDate = new Date();
-                days=(getDate.getUTCDay()-1)*(-1);
-                getDate.setDate(getDate.getDate() + days);
-                this.date_cnv = getDate.toISOString().split('T')[0];
-
+                this.date_his = getDate.toISOString().split('T')[0];
                 setTimeout(() => $('.show-tick').selectpicker('refresh'));
 
             }).catch(e => {
@@ -155,20 +150,26 @@ const appPrematuros = new Vue({
             $('.table').footable();
         },
 
-        PrintNominal: function(){
+        PrintNominal: function(_dats){
             var red = $('#red').val();
             var dist = $('#distrito').val();
             var anio = $('#anio').val();
             var mes = $('#mes').val();
 
-            const getDate = new Date();
-            red == '' ? red = "TODOS" : red;    dist == '' ? dist = "TODOS" : dist;
-            anio == '' ? anio = getDate.getFullYear() : anio;     mes == '' ? mes = getDate.getMonth()+1 : mes;
+            console.log(anio, '-', mes);
 
-            console.log(red, dist, anio, mes);
-            url_ = window.location.origin + window.location.pathname + '/print?r=' + (red) + '&d=' + (dist) + '&a=' + (anio)
-            + '&m=' + (mes)  + '&nameMonth=' + (this.nameMonth) + '&pn=' + (this.date_pn) + '&cnv=' + (this.date_cnv);
+            const getDate = new Date();
+            red == '' ? red = "TODOS" : red;
+            dist == '' ? dist = "TODOS" : dist;
+            anio == '' ? anio = getDate.getFullYear() : anio;
+            mes == '' ? mes = getDate.getMonth() : mes;
+
+            console.log(this.nameMonth);
+            console.log(red, '-', dist, '-', anio, '-', mes);
+            url_ = window.location.origin + window.location.pathname + '/print?r=' + (red) + '&d=' + (dist) + '&a=' + (anio)  + '&m=' + (mes)  + '&nameMonth=' + (this.nameMonth);
             window.open(url_,'_blank');
+            // url_ = window.location.origin + window.location.pathname + 'apipdfConsolidate?period=' + btoa(period)+'&program='+ btoa(program);
+            //     window.open(url_,'_blank');
         },
     }
 })

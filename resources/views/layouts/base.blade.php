@@ -35,19 +35,25 @@
         <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
         <link rel="stylesheet" href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
 
+        <!-- Toastr -->
+        <link rel="stylesheet" href="plugins/toastr/toastr.min.css">
+
         <link rel="stylesheet" href="{{ asset('./css/styleFed.css') }}"/>
         <link rel="stylesheet" href="{{ asset('./css/style.css') }}"/>
-
-        <!-- JQUERY -->
-        <script src="./js/jquery-3.6.0.min.js"></script>
 
         <!-- link paginacion -->
         <link rel="stylesheet" href="./plugins/footable/css/footable.core.css">
         <link rel="stylesheet" href="./css/style_footable.css">
 
+        <!-- jQuery -->
+        <script src="plugins/jquery/jquery.min.js"></script>
+
         <!-- VUE -->
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
         <script src="./plugins/vue/vue.js"></script>
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+        @yield('css')
     </head>
     <body class="hold-transition sidebar-mini layout-fixed">
         <div class="wrapper">
@@ -63,9 +69,6 @@
             @include('layouts.footer.auth')
         </div>
         <!-- ./wrapper -->
-
-        <!-- jQuery -->
-        {{-- <script src="plugins/jquery/jquery.min.js"></script> --}}
         <!-- jQuery UI 1.11.4 -->
         <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
         <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -107,5 +110,11 @@
 
         <script src="./plugins/footable/js/footable-init.js"></script>
         <script src="./plugins/footable/js/footable.all.min.js"></script>
+        <!-- Toastr -->
+        <script src="./plugins/toastr/toastr.min.js"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+
+        @yield('scripts')
     </body>
 </html>
