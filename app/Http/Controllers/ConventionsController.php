@@ -27,7 +27,7 @@ class ConventionsController extends Controller
         elseif ($red_1 == '03') { $red = 'OXAPAMPA'; }
 
         if($red_1 == 'TODOS'){
-            $nominal0 = DB::statement("DECLARE @MES_INICIO INT, @MES_FINAL INT, @YEAR INT, @FECHA_FIN DATE
+            $query = DB::statement("DECLARE @MES_INICIO INT, @MES_FINAL INT, @YEAR INT, @FECHA_FIN DATE
                         SET @MES_INICIO=1
                         SET @MES_FINAL=9
                         SET @YEAR=2022
@@ -94,16 +94,24 @@ class ConventionsController extends Controller
                     ->orderBy('PROVINCIA', 'ASC') ->orderBy('DISTRITO', 'ASC') ->orderBy('EESS_NOMBRE', 'ASC')
                     ->get();
 
-            
-            $query1 = DB::statement(DB::raw("DROP TABLE BDHIS_MINSA_EXTERNO_V2.dbo.CONSOL_CNV_BCG_HVB
+            $query1 = DB::statement("SELECT *, IIF (NUM_HVB=1 AND NUM_BCG=1,1,0) NUM
+                                INTO BDHIS_MINSA_EXTERNO_V2.DBO.ID_FICHA_06_NOMINAL
+                                FROM BDHIS_MINSA_EXTERNO_V2.dbo.REPORTE_BCG_HVB");
+
+            $t_resume = DB::table('dbo.ID_FICHA_06_NOMINAL')
+                        ->select('ANIO', 'PERIODO', 'UBIGEO', 'Departamento', 'PROVINCIA', 'DISTRITO', 'RED', 'Categoria', 'EESS_NOMBRE', 'ID_EESS',
+                         DB::raw("SUM(DEN) DENOMINADOR, SUM(NUM) NUMERADOR, SUM(NUM_HVB) NUM_HVB, SUM(NUM_BCG ) NUM_BCG"))
+                        ->groupByRaw('ANIO,PERIODO,UBIGEO,Departamento,PROVINCIA,DISTRITO,RED,Categoria,EESS_NOMBRE,ID_EESS')
+                        ->get();
+
+            $query2 = DB::statement(DB::raw("DROP TABLE BDHIS_MINSA_EXTERNO_V2.dbo.CONSOL_CNV_BCG_HVB
                                             DROP TABLE BDHIS_MINSA_EXTERNO_V2.dbo.CONSOL_HISMINSA_BCG_HVB
                                             DROP TABLE BDHIS_MINSA_EXTERNO_V2.dbo.CNV_FINAL_BCG_HVB
                                             DROP TABLE BDHIS_MINSA_EXTERNO_V2.dbo.ATENDIDOS_BCG_HVB
                                             DROP TABLE BDHIS_MINSA_EXTERNO_V2.dbo.DOSIS1_BCG
                                             DROP TABLE BDHIS_MINSA_EXTERNO_V2.dbo.DOSIS1_HVB
-                                            DROP TABLE BDHIS_MINSA_EXTERNO_V2.dbo.REPORTE_BCG_HVB"));
-
-            $t_resume = '';
+                                            DROP TABLE BDHIS_MINSA_EXTERNO_V2.dbo.REPORTE_BCG_HVB
+                                            DROP TABLE BDHIS_MINSA_EXTERNO_V2.DBO.ID_FICHA_06_NOMINAL"));
 
             $resum_red = '';
         }

@@ -125,69 +125,61 @@
                         <div class="col-md-8">
                             <div class="row" id="cg_avance_regional">
                                 <h5 class="col-md-12 text-center mb-2 font-14" style="color: #174d9d;"><span class="name_red"></span> / <span class="name_dist"></span> - <span class="name_mes"></span> <span class="name_anio"></span></h5>
-                                <div class="col-md-4">
-                                    <div class="border border-primary">
-                                        <h6 class="p-1 text-center m-0">Avance Regional</h6>
-                                        <div style="height: 104px;" id="micarga"></div>
-                                    </div>
-                                </div>
-                                 <div class="col-md-8 p-0">
-                                    <div class="row">
-                                        <div class="col-md-2 text-center p-1">
-                                            <button type="submit" id="export_data" name="exportarCSV" class="btn btn-outline-success m-1 btn-sm mb-2 font-11" @click=""><i class="fa fa-print"></i> Imprimir</button>
-                                            <button type="button" class="btn btn-outline-danger m-1 btn-sm btn_information mb-2 font-11" data-toggle="modal" data-target="#ModalInformacion"><i class="fa fa-list"></i> Ficha</button>
+                                <div class="row">
+                                    <div class="col-md-7">
+                                        <div class="row justify-content-center">
+                                             <div class="col-md-6 col-sm-4">
+                                                 <div class="info-box elevation-2 p-1">
+                                                     <div class="info-box-content">
+                                                         <span class="info-box-text font-13 text-center">Cumplen</span>
+                                                         <div class="d-flex">
+                                                             <div class="col-md-12 justify-content-center align-items-center d-flex">
+                                                                 <img src="./img/boy.png" width="33" alt="icon cantidad total">
+                                                             </div>
+                                                             <span class="info-box-number col-md-12 text-center text-success font-20 mt-0">[[ cumple ]]</span>
+                                                         </div>
+                                                     </div>
+                                                 </div>
+                                             </div>
+                                             <div class="col-md-6 col-sm-4">
+                                                 <div class="info-box elevation-2 p-1" id="all">
+                                                     <div class="info-box-content">
+                                                         <span class="info-box-text font-13 text-center">No Cumplen</span>
+                                                         <div class="d-flex">
+                                                             <div class="col-md-12 justify-content-center align-items-center d-flex">
+                                                                 <img src="./img/boy_x.png" width="33" alt="icon cantidad total">
+                                                             </div>
+                                                             <span class="info-box-number col-md-12 text-center text-danger font-20 mt-0">[[ no_cumple ]]</span>
+                                                         </div>
+                                                     </div>
+                                                 </div>
+                                             </div>
+                                             <div class="col-md-7 col-sm-4">
+                                                 <div class="info-box elevation-2 p-1">
+                                                     <div class="info-box-content">
+                                                         <span class="info-box-text font-13 text-center">Cantidad Registros</span>
+                                                         <div class="d-flex">
+                                                             <div class="col-md-12 justify-content-center align-items-center d-flex">
+                                                                 <img src="./img/user_cant.png" width="33" alt="icon cantidad total">
+                                                             </div>
+                                                             <span class="info-box-number col-md-12 text-center text-secondary font-20 mt-0">[[ total ]]</span>
+                                                         </div>
+                                                     </div>
+                                                 </div>
+                                             </div>
                                         </div>
-                                        <div class="col-sm-3 swing animated">
-                                            <div class="card p-0">
-                                                <div class="card-body p-1 text-center">
-                                                    <input type="text" class="knob" value="0" data-readonly="true" data-width="90" data-height="90" data-fgColor="#00c0ef">
-                                                    <div class="knob-label text-primary">Avance</div>
-                                                </div>
+                                     </div>
+                                    <div class="col-md-3 col-sm-3 swing animated">
+                                        <div class="card p-0">
+                                            <div class="card-body p-1 text-center">
+                                                <input type="text" class="knob" value="0" data-readonly="true" data-width="90" data-height="90" data-fgColor="#00c0ef">
+                                                <div class="knob-label text-primary">Avance</div>
                                             </div>
                                         </div>
-                                        <div class="col-md-7">
-                                           <div class="row justify-content-center">
-                                                <div class="col-md-6 col-sm-4">
-                                                    <div class="info-box elevation-2 p-1">
-                                                        <div class="info-box-content">
-                                                            <span class="info-box-text font-13 text-center">Cumplen</span>
-                                                            <div class="d-flex">
-                                                                <div class="col-md-6 justify-content-center align-items-center d-flex">
-                                                                    <img src="./img/boy.png" width="33" alt="icon cantidad total">
-                                                                </div>
-                                                                <span class="info-box-number col-md-6 text-success font-20 mt-0">[[ cumple ]]</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-sm-4">
-                                                    <div class="info-box elevation-2 p-1" id="all">
-                                                        <div class="info-box-content">
-                                                            <span class="info-box-text font-13 text-center">No Cumplen</span>
-                                                            <div class="d-flex">
-                                                                <div class="col-md-6 justify-content-center align-items-center d-flex">
-                                                                    <img src="./img/boy_x.png" width="33" alt="icon cantidad total">
-                                                                </div>
-                                                                <span class="info-box-number col-md-6 text-danger font-20 mt-0">[[ no_cumple ]]</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-7 col-sm-4">
-                                                    <div class="info-box elevation-2 p-1">
-                                                        <div class="info-box-content">
-                                                            <span class="info-box-text font-13 text-center">Cantidad Registros</span>
-                                                            <div class="d-flex">
-                                                                <div class="col-md-6 justify-content-center align-items-center d-flex">
-                                                                    <img src="./img/user_cant.png" width="33" alt="icon cantidad total">
-                                                                </div>
-                                                                <span class="info-box-number col-md-6 text-secondary font-20 mt-0">[[ total ]]</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                           </div>
-                                        </div>
+                                    </div>
+                                    <div class="col-md-2 text-center p-1">
+                                        <button type="submit" id="export_data" name="exportarCSV" class="btn btn-outline-success m-1 btn-sm mb-2 font-11" @click=""><i class="fa fa-print"></i> Imprimir</button>
+                                        <button type="button" class="btn btn-outline-danger m-1 btn-sm btn_information mb-2 font-11" data-toggle="modal" data-target="#ModalInformacion"><i class="fa fa-list"></i> Ficha</button>
                                     </div>
                                 </div>
                             </div>
@@ -249,14 +241,48 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="col-md-4" id="cg_avance_distrital">
-                            <div class="text-center" id="buttons_red"></div>
-                            <!-- GRAFICA POR DISTRITOS -->
-                            <div class="col-md-12 mt-2">
-                                <div class="border border-secondary">
-                                    <h6 class="p-2 text-center m-0">Avance Distrital</h6>
-                                    <div class="dac" style="height: 345px; padding-right: 10px;"> </div>
-                                </div><br>
+                        <div class="col-md-4">
+                            <div id="table_resume">
+                                <div class="table-responsive" id="prematuro_resume">
+                                    <table class="table table-hover table-bordered table-striped">
+                                        <thead>
+                                            <tr class="font-9 text-center" style="background: #e0eff5;">
+                                                <th class="align-middle">#</th>
+                                                <th class="align-middle">Periodo</th>
+                                                <th class="align-middle">Provincia</th>
+                                                <th class="align-middle">Distrito</th>
+                                                <th class="align-middle">Avan</th>
+                                                <th class="align-middle">Meta</th>
+                                                <th class="align-middle">%</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="(format, key) in listsResum" class="font-8">
+                                                <td class="align-middle text-center">[[ key+1 ]]</td>
+                                                <td class="align-middle text-center">[[ format.PERIODO ]]</td>
+                                                <td class="align-middle">[[ format.PROVINCIA ]]</td>
+                                                <td class="align-middle text-center">[[ format.DISTRITO ]]</td>
+                                                <td class="align-middle text-center">[[ format.NUMERADOR ]]</td>
+                                                <td class="align-middle text-center">[[ format.DENOMINADOR ]]</td>
+                                                <template v-if="format.AVANCE > 59">
+                                                    <td class="bg-success text-white align-middle text-center">[[ format.AVANCE ]]%</td>
+                                                </template>
+                                                <template v-else-if="format.AVANCE <= 49">
+                                                    <td class="bg-danger text-white align-middle text-center">[[ format.AVANCE ]]%</td>
+                                                </template>
+                                                <template v-else-if="format.AVANCE > 49 && format.AVANCE <= 59">
+                                                    <td class="bg-warning text-white align-middle text-center">[[ format.AVANCE ]]%</td>
+                                                </template>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div><br><br>
+                            <div class="col-md-4">
+                                <div class="border border-primary">
+                                    <h6 class="p-1 text-center m-0">Avance Regional</h6>
+                                    <div style="height: 104px;" id="micarga"></div>
+                                </div>
                             </div>
                         </div>
                     </div>

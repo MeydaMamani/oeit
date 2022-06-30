@@ -67,7 +67,7 @@ const appPrematuros = new Vue({
                     }
 
                     for (let j = 0; j < this.listsResum.length; j++) {
-                        var avance = (this.listsResum[j].NUM/this.listsResum[j].DEN)*100;
+                        var avance = (this.listsResum[j].NUMERADOR/this.listsResum[j].DENOMINADOR)*100;
                         avance % 1 != 0 ? this.listsResum[j].AVANCE = avance.toFixed(1) : this.listsResum[j].AVANCE = avance;
                     }
 
