@@ -1,7 +1,7 @@
 @extends('layouts.base')
 
 @section('content')
-    <div class="content-wrapper" id="appCredMensual">
+    <div class="content-wrapper" id="appConventions">
         <section class="content">
             <section class="content-header">
                 <div class="container-fluid">
@@ -111,7 +111,7 @@
                                         </div>
                                         <div class="col-md-12 p-0">
                                             <div class="d-flex justify-content-center">
-                                                <button class="btn btn-primary btn-sm m-1 font-11" id="search" type="button" @click="listPremature"><i class="fa fa-search"></i> Buscar</button>
+                                                <button class="btn btn-primary btn-sm m-1 font-11" id="search" type="button" @click="listVaccineBcgHvb"><i class="fa fa-search"></i> Buscar</button>
                                                 <button class="btn btn-secondary btn-sm m-1 font-11" type="button" id="clear2"><i class="fa fa-broom"></i> Limpiar</button>
                                             </div>
                                         </div>
@@ -123,7 +123,7 @@
                     <hr style="margin-top: -5px; margin-bottom: 8px;">
                     <div class="row">
                         <div class="col-md-8">
-                            <div class="row" id="cg_avance_regional" style="display: none;">
+                            <div class="row" id="cg_avance_regional">
                                 <h5 class="col-md-12 text-center mb-2 font-14" style="color: #174d9d;"><span class="name_red"></span> / <span class="name_dist"></span> - <span class="name_mes"></span> <span class="name_anio"></span></h5>
                                 <div class="col-md-4">
                                     <div class="border border-primary">
@@ -134,56 +134,54 @@
                                  <div class="col-md-8 p-0">
                                     <div class="row">
                                         <div class="col-md-2 text-center p-1">
-                                            <form action="" method="POST" id="formPrint">
-                                                <input hidden name="red_print" id="red_print" value="">
-                                                <input hidden name="distrito_print" id="distrito_print" value="">
-                                                <input hidden name="establecimiento_print" id="establecimiento_print" value="">
-                                                <input hidden name="anio_print" id="anio_print" value="">
-                                                <input hidden name="mes_print" id="mes_print" value="">
-                                                <button type="submit" name="exportarCSV" class="btn btn-outline-success m-1 btn-sm mb-2"><i class="mdi mdi-printer"></i> Imprimir</button>
-                                            </form>
-                                            <button type="button" class="btn btn-outline-danger m-1 btn-sm btn_information mb-2"><i class="mdi mdi-format-list-bulleted"></i> Ficha</button>
+                                            <button type="submit" id="export_data" name="exportarCSV" class="btn btn-outline-success m-1 btn-sm mb-2 font-11" @click=""><i class="fa fa-print"></i> Imprimir</button>
+                                            <button type="button" class="btn btn-outline-danger m-1 btn-sm btn_information mb-2 font-11" data-toggle="modal" data-target="#ModalInformacion"><i class="fa fa-list"></i> Ficha</button>
                                         </div>
                                         <div class="col-sm-3 swing animated">
-                                            <div class="card" style="box-shadow: 5px 5px 5px #999;">
-                                                <div class="card-body p-2">
-                                                    <div class="col-md-12 text-center">
-                                                        <div id="chart_advance" class="css-bar m-b-0 css-bar-info css-bar-0"><i class="mdi mdi-receipt"></i>
-                                                        </div>
-                                                        <h4 class="advance text-primary mb-0"><span></span></h4>
-                                                        <h5 class="text-muted m-0 font-18">Avance</h5>
-                                                    </div>
+                                            <div class="card p-0">
+                                                <div class="card-body p-1 text-center">
+                                                    <input type="text" class="knob" value="0" data-readonly="true" data-width="90" data-height="90" data-fgColor="#00c0ef">
+                                                    <div class="knob-label text-primary">Avance</div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-7">
                                            <div class="row justify-content-center">
-                                                <div class="col-sm-6 swing animated">
-                                                    <div class="card" style="box-shadow: 5px 5px 5px #999;">
-                                                        <div class="card-body p-1">
-                                                            <p class="card-title text-muted text-center font-13 mb-0">Cumplen</h4>
-                                                            <div class="font-medium text-center justify-content-center d-flex">
-                                                                <label class="text-success cg_text_cumplen font-20"> </label> <i class="mdi mdi-check text-success font-20"></i>
+                                                <div class="col-md-6 col-sm-4">
+                                                    <div class="info-box elevation-2 p-1">
+                                                        <div class="info-box-content">
+                                                            <span class="info-box-text font-13 text-center">Cumplen</span>
+                                                            <div class="d-flex">
+                                                                <div class="col-md-6 justify-content-center align-items-center d-flex">
+                                                                    <img src="./img/boy.png" width="33" alt="icon cantidad total">
+                                                                </div>
+                                                                <span class="info-box-number col-md-6 text-success font-20 mt-0">[[ cumple ]]</span>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-6 swing animated">
-                                                    <div class="card" style="box-shadow: 5px 5px 5px #999;">
-                                                        <div class="card-body p-1">
-                                                            <p class="card-title text-muted text-center font-13 mb-0">No Cumplen</h4>
-                                                            <div class="font-medium text-center justify-content-center d-flex">
-                                                                <label class="text-danger cg_text_nocumplen font-20"> </label> <i class="mdi mdi-close text-danger font-20"></i>
+                                                <div class="col-md-6 col-sm-4">
+                                                    <div class="info-box elevation-2 p-1" id="all">
+                                                        <div class="info-box-content">
+                                                            <span class="info-box-text font-13 text-center">No Cumplen</span>
+                                                            <div class="d-flex">
+                                                                <div class="col-md-6 justify-content-center align-items-center d-flex">
+                                                                    <img src="./img/boy_x.png" width="33" alt="icon cantidad total">
+                                                                </div>
+                                                                <span class="info-box-number col-md-6 text-danger font-20 mt-0">[[ no_cumple ]]</span>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-7 swing animated">
-                                                    <div class="card" style="box-shadow: 5px 5px 5px #999;">
-                                                        <div class="card-body p-1">
-                                                            <p class="card-title text-muted text-center font-13 mb-0">Total Registros</h4>
-                                                            <div class="font-medium text-center justify-content-center d-flex">
-                                                                <label class="text-secondary cg_text_total font-20"> </label> <i class="mdi mdi-close text-secondary font-20"></i>
+                                                <div class="col-md-7 col-sm-4">
+                                                    <div class="info-box elevation-2 p-1">
+                                                        <div class="info-box-content">
+                                                            <span class="info-box-text font-13 text-center">Cantidad Registros</span>
+                                                            <div class="d-flex">
+                                                                <div class="col-md-6 justify-content-center align-items-center d-flex">
+                                                                    <img src="./img/user_cant.png" width="33" alt="icon cantidad total">
+                                                                </div>
+                                                                <span class="info-box-number col-md-6 text-secondary font-20 mt-0">[[ total ]]</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -193,9 +191,65 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="cg_mitable_all" class="text-center"></div>
+                            <div class="table-responsive table_all mb-1 mt-1" id="tmz_neonatal">
+                                <table id="demo-foo-addrow2" class="table table-hover table-striped" data-page-size="20" data-limit-navigation="10">
+                                    <thead>
+                                        <tr class="font-10 text-center" style="background: #e0eff5;">
+                                            <th class="align-middle">#</th>
+                                            <th class="align-middle">Periodo</th>
+                                            <th class="align-middle">Ubigeo</th>
+                                            <th class="align-middle">Provincia</th>
+                                            <th class="align-middle">Distrito</th>
+                                            <th class="align-middle">Id Establecimiento</th>
+                                            <th class="align-middle">Establecimiento</th>
+                                            <th class="align-middle">Categoria</th>
+                                            <th class="align-middle">Documento</th>
+                                            <th class="align-middle">Fecha Nacido</th>
+                                            <th class="align-middle">Num Hvb</th>
+                                            <th class="align-middle">Num Bcg</th>
+                                            <th class="align-middle">Den</th>
+                                            <th class="align-middle">Num</th>
+                                        </tr>
+                                    </thead>
+                                    <div class="float-right col-md-4">
+                                        <div class="mb-2">
+                                            <div class="input-wrapper input-group-sm">
+                                                <input id="demo-input-search2" class="form-control input" type="search" placeholder="Buscar por nombres o dni..." style="padding-left: 25px;">
+                                                <i class="fa fa-search input-icon font-13"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <tbody>
+                                        <tr v-for="(format, key) in lists" class="font-10">
+                                            <td class="align-middle text-center">[[ key+1 ]]</td>
+                                            <td class="align-middle text-center">[[ format.PERIODO ]]</td>
+                                            <td class="align-middle text-center">[[ format.UBIGEO ]]</td>
+                                            <td class="align-middle text-center">[[ format.PROVINCIA ]]</td>
+                                            <td class="align-middle text-center">[[ format.DISTRITO ]]</td>
+                                            <td class="align-middle text-center">[[ format.ID_EESS ]]</td>
+                                            <td class="align-middle text-center">[[ format.EESS_NOMBRE ]]</td>
+                                            <td class="align-middle text-center">[[ format.Categoria ]]</td>
+                                            <td class="align-middle text-center">[[ format.NUM_DOC ]]</td>
+                                            <td class="align-middle text-center">[[ format.FE_NACIDO ]]</td>
+                                            <td class="align-middle text-center">[[ format.NUM_HVB ]]</td>
+                                            <td class="align-middle text-center">[[ format.NUM_BCG ]]</td>
+                                            <td class="align-middle text-center">[[ format.DEN ]]</td>
+                                            <td class="align-middle text-center">[[ format.NUM ]]</td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="20">
+                                                <div class="">
+                                                    <ul class="pagination"></ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
                         </div>
-                        <div class="col-md-4" id="cg_avance_distrital" style="display: none;">
+                        <div class="col-md-4" id="cg_avance_distrital">
                             <div class="text-center" id="buttons_red"></div>
                             <!-- GRAFICA POR DISTRITOS -->
                             <div class="col-md-12 mt-2">
@@ -223,7 +277,7 @@
             </div>
         </div>
     </div>
-    <script src="./js/credMes.js"></script>
+    <script src="./js/Conventions.js"></script>
     <script>
         $(document).ready(function(){
             $("#search").click();

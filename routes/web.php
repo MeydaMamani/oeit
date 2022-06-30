@@ -8,6 +8,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ConventionsController;
 
 Route::get('/conventions', [ConventionsController::class, 'index']);
+Route::post('/conventions/list', [ConventionsController::class, 'listVaccineBcgHvb']);
 
 Route::post('prov/', [MainController::class, 'province']);
 Route::post('distr/', [MainController::class, 'district']);
