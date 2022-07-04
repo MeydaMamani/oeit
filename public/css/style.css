@@ -341,3 +341,10 @@ div#all:hover div#info {
     z-index: 10;
     background: #68cccc !important;
 }
+
+
+/* CAMBIOS EN CSS ORIGINAL */
+
+.info-box-not-dflex{
+    display: inherit !important;
+}

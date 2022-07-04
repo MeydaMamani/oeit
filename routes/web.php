@@ -30,12 +30,16 @@ Route::post('/supplementation/list', [FedController::class, 'listSuple']);
 Route::get('/supplementation/print', [FedController::class, 'printSuple']);
 
 Route::get('/iniOport', [FedController::class, 'indexIniOport']);
-Route::post('/iniOport/list', [FedController::class, 'listSuple']);
-Route::get('/iniOport/print', [FedController::class, 'printSuple']);
+Route::post('/iniOport/list', [FedController::class, 'listIniOportuno']);
+Route::get('/iniOport/print', [FedController::class, 'printIniOportuno']);
 
 Route::get('/cred', [FedController::class, 'indexCredMes']);
 Route::post('/cred/list', [FedController::class, 'listCredMes']);
 Route::get('/cred/print', [FedController::class, 'printCredMes']);
+
+Route::get('/childPackage', [FedController::class, 'indexChildPackage']);
+Route::get('/childPackage/print', [FedController::class, 'printchildPackage']);
+
 
 Route::get('/bateria', [FedController::class, 'indexBateria']);
 Route::post('/bateria/list', [FedController::class, 'listBateria']);

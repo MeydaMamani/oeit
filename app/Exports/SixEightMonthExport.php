@@ -10,30 +10,30 @@ use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class CredMonthlyExport implements FromView, ShouldAutoSize
+class SixEightMonthExport implements FromView, ShouldAutoSize
 {
     protected $nominal;
     protected $anio;
     protected $nameMonth;
-    protected $his;
     protected $pn;
+    protected $his;
 
-    public function __construct($nominal_f=null, $a, $name, $his, $pn)
+    public function __construct($nominal_f=null, $a, $name, $pn, $his)
     {
         $this->nominal=$nominal_f;
         $this->anio=$a;
         $this->nameMonth=$name;
-        $this->his=$his;
         $this->pn=$pn;
+        $this->his=$his;
     }
 
     public function view(): View {
         $nominal_f = $this->nominal;
         $a = $this->anio;
         $name = $this->nameMonth;
-        $his = $this->his;
         $pn = $this->pn;
+        $his = $this->his;
         // return view("facturas.ajax-product",compact("nominal_factura"));
-        return view('fed.kids.CredMonthly.print', [ 'credMensual' => $nominal_f, 'anio' => $a, 'nameMonth' => $name, 'his' => $his, 'pn' => $pn ]);
+        return view('fed.kids.SixEightMonth.print', [ 'nomin' => $nominal_f, 'anio' => $a, 'nameMonth' => $name, 'pn' => $pn, 'his' => $his ]);
     }
 }

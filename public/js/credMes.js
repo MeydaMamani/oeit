@@ -164,7 +164,8 @@ const appPrematuros = new Vue({
             red == '' ? red = "TODOS" : red;    dist == '' ? dist = "TODOS" : dist;
             anio == '' ? anio = getDate.getFullYear() : anio;     mes == '' ? mes = getDate.getMonth() : mes;
             url_ = window.location.origin + window.location.pathname + '/print?r=' + (red) + '&d=' + (dist) + '&a=' + (anio)
-            + '&m=' + (mes)  + '&nameMonth=' + (this.nameMonth) + '&his=' + (this.date_his);
+            + '&m=' + (mes)  + '&nameMonth=' + (this.nameMonth) + '&pn=' + (this.date_pn) + '&his=' + (this.date_his);
+            console.log(url_);
             window.open(url_,'_blank');
         },
     }

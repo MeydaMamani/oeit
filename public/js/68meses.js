@@ -39,12 +39,12 @@ const appPrematuros = new Vue({
         this.datePn();
     },
     methods: {
-        listSuplementado: function() {
+        listSixEightMonth: function() {
             $(".nominalTable").removeAttr("id");
             $(".nominalTable").attr("id","cuatro_meses");
             this.suplementado=0; this.no_suplementado=0; this.total=0;
             const getDate = new Date();
-            const currentData = { "red": "TODOS", "distrito": "TODOS", "anio": getDate.getFullYear(), "mes": getDate.getMonth() }
+            const currentData = { "red": "TODOS", "distrito": "TODOS", "anio": getDate.getFullYear(), "mes": getDate.getMonth()+1 }
             const formData = $("#formulario").serialize();
             this.red == '' ? data = currentData : data = formData;
 
@@ -55,7 +55,7 @@ const appPrematuros = new Vue({
             // else{
                 axios({
                     method: 'POST',
-                    url: 'suple/list',
+                    url: 'iniOport/list',
                     data: data,
                 })
                 .then(response => {
@@ -64,7 +64,7 @@ const appPrematuros = new Vue({
                     this.advanceReg = response.data[2];
                     for (let i = 0; i < this.lists.length; i++) {
                         this.total++;
-                        this.lists[i].SUPLEMENTADO == 'SI' ? this.suplementado++ : this.no_suplementado++;
+                        this.lists[i].MIDE == 'CUMPLE' ? this.suplementado++ : this.no_suplementado++;
                     }
 
                     for (let j = 0; j < this.listsResum.length; j++) {
@@ -77,14 +77,16 @@ const appPrematuros = new Vue({
                         a % 1 != 0 ? this.advanceReg[k].ADVANCE = a.toFixed(1) : this.advanceReg[k].ADVANCE = a;
                     }
 
+                    this.avance = ((this.suplementado / this.total) * 100).toFixed(1);
+                    console.log(this.avance);
+                    console.log('AQUI TOY');
+                    $('.knob').val(this.avance + '%').trigger('change');
+                    $('.footable-page a').filter('[data-page="0"]').trigger('click');
+
                     this.anio == '' ? this.nameYear = getDate.getFullYear() : this.nameYear = this.anio;
                     this.mes == '' ? this.mes = getDate.getMonth() + 1 : this.mes;
                     this.nameMonth = new Intl.DateTimeFormat('es-ES', { month: 'long'}).format( getDate.setMonth(this.mes - 1));
                     this.nameMonth = this.nameMonth.charAt(0).toUpperCase() + this.nameMonth.slice(1);
-
-                    this.avance = ((this.suplementado / this.total) * 100).toFixed(1);
-                    $('.knob').val(this.avance + '%').trigger('change');
-                    $('.footable-page a').filter('[data-page="0"]').trigger('click');
 
                 }).catch(e => {
                     this.errors.push(e)
@@ -132,12 +134,12 @@ const appPrematuros = new Vue({
             })
         },
 
-        listNoSuple() {
+        listNoCumplen() {
             $(".nominalTable").removeAttr("id");
             $(".nominalTable").attr("id","no_cumplen");
             this.listNoSuplement = [];
             for (let i = 0; i < this.lists.length; i++) {
-                if(this.lists[i].SUPLEMENTADO == 'NO'){
+                if(this.lists[i].MIDE == 'NO CUMPLE'){
                     this.listNoSuplement.push(this.lists[i]);
                 }
             }
@@ -150,26 +152,18 @@ const appPrematuros = new Vue({
             $('.table').footable();
         },
 
-        PrintNominal: function(_dats){
+        PrintNominal: function(){
             var red = $('#red').val();
             var dist = $('#distrito').val();
             var anio = $('#anio').val();
             var mes = $('#mes').val();
 
-            console.log(anio, '-', mes);
-
             const getDate = new Date();
-            red == '' ? red = "TODOS" : red;
-            dist == '' ? dist = "TODOS" : dist;
-            anio == '' ? anio = getDate.getFullYear() : anio;
-            mes == '' ? mes = getDate.getMonth() : mes;
-
-            console.log(this.nameMonth);
-            console.log(red, '-', dist, '-', anio, '-', mes);
-            url_ = window.location.origin + window.location.pathname + '/print?r=' + (red) + '&d=' + (dist) + '&a=' + (anio)  + '&m=' + (mes)  + '&nameMonth=' + (this.nameMonth);
+            red == '' ? red = "TODOS" : red;    dist == '' ? dist = "TODOS" : dist;
+            anio == '' ? anio = getDate.getFullYear() : anio;     mes == '' ? mes = getDate.getMonth() : mes;
+            url_ = window.location.origin + window.location.pathname + '/print?r=' + (red) + '&d=' + (dist) + '&a=' + (anio)
+            + '&m=' + (mes)  + '&nameMonth=' + (this.nameMonth) + '&pn=' + (this.date_pn) + '&his=' + (this.date_his);
             window.open(url_,'_blank');
-            // url_ = window.location.origin + window.location.pathname + 'apipdfConsolidate?period=' + btoa(period)+'&program='+ btoa(program);
-            //     window.open(url_,'_blank');
         },
     }
 })

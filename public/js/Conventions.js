@@ -24,6 +24,7 @@ const appPrematuros = new Vue({
         no_cumple: 0,
         avance: 0,
         advanceReg: [],
+        bcg_hvb: false,
         provinces: [],
         districts: {},
         red: '',
@@ -38,29 +39,26 @@ const appPrematuros = new Vue({
     },
     methods: {
         listVaccineBcgHvb: function() {
-            $(".nominalTable").removeAttr("id");
-            $(".nominalTable").attr("id","bateria_completa");
             this.cumple=0; this.no_cumple=0; this.total=0;
-            const getDate = new Date();
-            const currentData = { "red": "TODOS", "distrito": "TODOS", "anio": getDate.getFullYear(), "mes": getDate.getMonth()-1 }
             const formData = $("#formulario").serialize();
             this.red == '' ? data = currentData : data = formData;
 
-            // if (this.red == '') { toastr.error('Seleccione una Red', null, { "closeButton": true, "progressBar": true }); }
-            // else if (this.distrito == '') { toastr.error('Seleccione un Distrito', null, { "closeButton": true, "progressBar": true }); }
-            // else if (this.anio == '') { toastr.error('Seleccione un Año', null, { "closeButton": true, "progressBar": true }); }
-            // else if (this.mes == '') { toastr.error('Seleccione un Mes', null, { "closeButton": true, "progressBar": true }); }
-            // else{
+            if (this.red == '') { toastr.error('Seleccione una Red', null, { "closeButton": true, "progressBar": true }); }
+            else if (this.distrito == '') { toastr.error('Seleccione un Distrito', null, { "closeButton": true, "progressBar": true }); }
+            else if (this.anio == '') { toastr.error('Seleccione un Año', null, { "closeButton": true, "progressBar": true }); }
+            else if (this.mes == '') { toastr.error('Seleccione un Mes', null, { "closeButton": true, "progressBar": true }); }
+            else{
                 axios({
                     method: 'POST',
                     url: 'conventions/list',
                     data: data,
                 })
                 .then(response => {
+                    this.bcg_hvb = true;
                     this.lists = response.data[0];
                     this.listsResum = response.data[1];
                     this.advanceReg = response.data[2];
-                    console.log(this.listsResum);
+                    console.log(this.advanceReg);
                     for (let i = 0; i < this.lists.length; i++) {
                         this.total++;
                         this.lists[i].NUM == this.lists[i].DEN ? this.cumple++ : this.no_cumple++;
@@ -71,19 +69,67 @@ const appPrematuros = new Vue({
                         avance % 1 != 0 ? this.listsResum[j].AVANCE = avance.toFixed(1) : this.listsResum[j].AVANCE = avance;
                     }
 
+                    this.avance = ((this.cumple / this.total) * 100).toFixed(1);
+                    console.log(this.avance);
+                    $('.knob').val(this.avance + '%').trigger('change');
+
+                    // PARA GRAFICO AVANCE REGIONAL
+                    const nameRed = [];
+                    const dataRed = [];
+                    for (let k = 0; k < this.advanceReg.length; k++) {
+                        nameRed.push(this.advanceReg[k].PROVINCIA);
+                        dataRed.push(this.advanceReg[k].AVANCE);
+                    }
+
+                    var areaChartData = {
+                        labels  : nameRed,
+                        datasets: [
+                            {
+                                label               : 'Avance',
+                                backgroundColor     : [ 'rgb(255 99 132 / 56%)', 'rgb(255 159 64 / 54%)' ],
+                                borderColor         : [ 'rgb(255 99 132 / 56%)', 'rgb(255 159 64 / 54%)' ],
+                                pointRadius         :  true,
+                                pointColor          : '#3b8bba',
+                                pointStrokeColor    : [ 'rgb(255 99 132 / 56%)', 'rgb(255 159 64 / 54%)' ],
+                                pointHighlightFill  : '#fff',
+                                pointHighlightStroke: [ 'rgb(255 99 132 / 56%)', 'rgb(255 159 64 / 54%)' ],
+                                data                :  dataRed,
+                            },
+                        ]
+                    }
+
+                    var barChartCanvas = $('#barChart').get(0).getContext('2d')
+                    var barChartData = $.extend(true, {}, areaChartData)
+                    var temp0 = areaChartData.datasets[0]
+                    barChartData.datasets[0] = temp0
+
+                    var barChartOptions = {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true,
+                                    max: 100,
+                                }
+                            }]
+                        },
+                    }
+
+                    new Chart(barChartCanvas, {
+                        type: 'bar',
+                        data: barChartData,
+                        options: barChartOptions
+                    })
+
+                    $('.footable-page a').filter('[data-page="0"]').trigger('click');
                     this.anio == '' ? this.nameYear = getDate.getFullYear() : this.nameYear = this.anio;
                     this.mes == '' ? this.mes = getDate.getMonth() + 1 : this.mes;
                     this.nameMonth = new Intl.DateTimeFormat('es-ES', { month: 'long'}).format( getDate.setMonth(this.mes - 1));
                     this.nameMonth = this.nameMonth.charAt(0).toUpperCase() + this.nameMonth.slice(1);
 
-                    this.avance = ((this.cumple / this.total) * 100).toFixed(1);
-                    $('.knob').val(this.avance + '%').trigger('change');
-                    $('.footable-page a').filter('[data-page="0"]').trigger('click');
-
                 }).catch(e => {
                     this.errors.push(e)
                 })
-            // }
+            }
         },
 
         filtersProv: function() {
@@ -112,5 +158,7 @@ const appPrematuros = new Vue({
                 this.errors.push(e)
             })
         },
+
+
     }
 })

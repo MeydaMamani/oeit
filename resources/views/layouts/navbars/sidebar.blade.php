@@ -57,7 +57,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ url('/suple') }}" class="nav-link">
+                                    <a href="{{ url('/supplementation') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Niños 4 Meses (CG04)</p>
                                     </a>
@@ -72,6 +72,12 @@
                                     <a href="{{ url('/cred') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Cred Avance Mensual (CG06)</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('/childPackage') }}" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Paquete Completo</p>
                                     </a>
                                 </li>
                             </ul>

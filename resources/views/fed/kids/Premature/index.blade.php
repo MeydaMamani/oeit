@@ -314,7 +314,6 @@
             $("#search").click();
         });
     </script>
-
 @endsection
 
 @section('javascript')

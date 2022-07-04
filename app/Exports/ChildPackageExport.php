@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class CredMonthlyExport implements FromView, ShouldAutoSize
+class ChildPackageExport implements FromView, ShouldAutoSize
 {
     protected $nominal;
     protected $anio;
@@ -34,6 +34,6 @@ class CredMonthlyExport implements FromView, ShouldAutoSize
         $his = $this->his;
         $pn = $this->pn;
         // return view("facturas.ajax-product",compact("nominal_factura"));
-        return view('fed.kids.CredMonthly.print', [ 'credMensual' => $nominal_f, 'anio' => $a, 'nameMonth' => $name, 'his' => $his, 'pn' => $pn ]);
+        return view('fed.kids.CredMonthly.print', [ 'childPackage' => $nominal_f, 'anio' => $a, 'nameMonth' => $name, 'his' => $his, 'pn' => $pn ]);
     }
 }
