@@ -6,12 +6,18 @@ use App\Http\Controllers\MainController;
 use App\Http\Controllers\DashboardController;
 
 use App\Http\Controllers\ConventionsController;
+use App\Http\Controllers\TracingController;
 
 Route::get('/conventions', [ConventionsController::class, 'index']);
 Route::post('/conventions/list', [ConventionsController::class, 'listVaccineBcgHvb']);
 
+Route::get('/filePlane', [TracingController::class, 'indexfilePlane']);
+Route::get('/filePlane/print', [FedController::class, 'printfilePlane']);
+
 Route::post('prov/', [MainController::class, 'province']);
 Route::post('distr/', [MainController::class, 'district']);
+Route::post('stablishment/', [MainController::class, 'stablishment']);
+Route::post('ups/', [MainController::class, 'ups']);
 Route::post('pn/', [MainController::class, 'datePadronNominal']);
 
 Route::get('/', function () { return view('index'); });
@@ -54,4 +60,3 @@ Route::get('/tratamiento/printSos', [FedController::class, 'printSospecha']);
 Route::get('/professionals', [FedController::class, 'indexProfesion']);
 Route::post('/professionals/list', [FedController::class, 'listSuple']);
 Route::get('/professionals/print', [FedController::class, 'printSuple']);
-

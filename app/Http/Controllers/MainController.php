@@ -39,6 +39,33 @@ class MainController extends Controller
         return response()->json($districts, 200);
     }
 
+    public function stablishment(Request $request) {
+        $dist = $request->id;
+
+        $estab = DB::connection('BDHIS_MINSA')->table('MAESTRO_HIS_ESTABLECIMIENTO')
+                    ->select('Id_Establecimiento', 'Nombre_Establecimiento')
+                    ->where('Descripcion_Sector', '=', 'GOBIERNO REGIONAL')
+                    ->where('Distrito', '=', $dist)
+                    ->orderBy('Id_Establecimiento', 'ASC')
+                    ->get();
+
+        $data = [ "Id_Establecimiento" => "TODOS", "Nombre_Establecimiento" => "TODOS", ];
+        $estab[] = $data;
+        return response()->json($estab, 200);
+    }
+
+    public function ups() {
+        $listUps = DB::table('LISTA_UPS')
+                    ->select('Id_Ups', 'Descripcion_Ups')
+                    ->groupBy('Id_Ups', 'Descripcion_Ups')
+                    ->orderBy('Descripcion_Ups', 'ASC')
+                    ->get();
+
+        $data = [ "Id_Ups" => "TODOS", "Descripcion_Ups" => "TODOS", ];
+        $listUps[] = $data;
+        return response()->json($listUps, 200);
+    }
+
     public function datePadronNominal() {
         // DB::connection('BDHIS_MINSA')->table('MAESTRO_HIS_ESTABLECIMIENTO')
         $query =DB::connection('BD_PADRON_NOMINAL')->table('NOMINAL_PADRON_NOMINAL')
