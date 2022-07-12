@@ -2,7 +2,7 @@
     <div class="col-md-8">
         <div class="row" id="cg_avance_regional">
             <h5 class="col-md-12 text-center mb-3 font-17" style="color: #174d9d;">
-                Pasco / Todos - Mayo 2022
+                [[ nameRedView ]] / [[ distrito ]] - [[ nameMonth ]] [[ nameYear ]]
             </h5>
             <div class="col-md-12">
                 <div class="row">
@@ -52,8 +52,8 @@
                         </div>
                     </div>
                     <div class="col-md-2 text-center p-1">
-                        <button type="submit" id="export_data" name="exportarCSV" class="btn btn-outline-success m-1 btn-sm mb-2 font-11" @click=""><i class="fa fa-print"></i> Imprimir</button>
-                        <button type="button" class="btn btn-outline-danger m-1 btn-sm btn_information mb-2 font-11" data-toggle="modal" data-target="#ModalInformacion"><i class="fa fa-list"></i> Ficha</button>
+                        <button type="submit" id="export_data" name="exportarCSV" class="btn btn-outline-success m-1 btn-sm mb-2 font-11" @click="PrintVaccineBcgHvb"><i class="fa fa-print"></i> Imprimir</button>
+                        <button type="button" class="btn btn-outline-danger m-1 btn-sm btn_information mb-2 font-11"><i class="fa fa-list"></i> Ficha</button>
                     </div>
                 </div>
             </div>
@@ -156,7 +156,7 @@
         <div class="card mb-2">
             <h6 class="pt-2 text-center m-0 font-weight-bold">Avance Regional</h6>
             <div class="card-body p-2 pr-3">
-                <div class="chart" style="height: 222px;">
+                <div class="chart">
                     <canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                 </div>
             </div>

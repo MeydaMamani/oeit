@@ -9,10 +9,16 @@ use App\Http\Controllers\ConventionsController;
 use App\Http\Controllers\TracingController;
 
 Route::get('/conventions', [ConventionsController::class, 'index']);
-Route::post('/conventions/list', [ConventionsController::class, 'listVaccineBcgHvb']);
+Route::post('/conventions/listBcgHvb', [ConventionsController::class, 'listVaccineBcgHvb']);
+Route::get('/conventions/printBcgHvb', [ConventionsController::class, 'printVaccineBcgHvb']);
+Route::get('/conventions/printRecovPatient', [ConventionsController::class, 'printRecovPatient']);
+Route::get('/conventions/printTwoCtrlCred', [ConventionsController::class, 'printTwoCtrlCred']);
 
 Route::get('/filePlane', [TracingController::class, 'indexfilePlane']);
-Route::get('/filePlane/print', [FedController::class, 'printfilePlane']);
+Route::get('/filePlane/print', [TracingController::class, 'printfilePlane']);
+
+Route::get('/patient', [TracingController::class, 'indexDetailPatient']);
+Route::get('/patient/print', [TracingController::class, 'printfilePlane']);
 
 Route::post('prov/', [MainController::class, 'province']);
 Route::post('distr/', [MainController::class, 'district']);
@@ -57,6 +63,14 @@ Route::get('/tratamiento/printSos', [FedController::class, 'printSospecha']);
 Route::post('/tratamiento/listTrat', [FedController::class, 'listTratamiento']);
 Route::get('/tratamiento/printSos', [FedController::class, 'printSospecha']);
 
+Route::get('/newUsers', [FedController::class, 'indexNewUsers']);
+Route::post('/newUsers/list', [FedController::class, 'listNewUsers']);
+Route::get('/newUsers/print', [FedController::class, 'printNewUsers']);
+
 Route::get('/professionals', [FedController::class, 'indexProfesion']);
-Route::post('/professionals/list', [FedController::class, 'listSuple']);
-Route::get('/professionals/print', [FedController::class, 'printSuple']);
+Route::post('/professionals/list', [FedController::class, 'listProfesion']);
+Route::get('/professionals/print', [FedController::class, 'printProfesion']);
+
+Route::get('/sisCovid', [FedController::class, 'indexSisCovid']);
+Route::post('/sisCovid/list', [FedController::class, 'listSisCovid']);
+Route::get('/sisCovid/print', [FedController::class, 'printSisCovid']);

@@ -14,12 +14,14 @@ Vue.directive('select2', {
 
 const appPrematuros = new Vue({
     delimiters: ['[[', ']]'],
-    el: '#appProfessionals',
+    el: '#appUsuariasNuevas',
     data: {
         errors: [],
         lists: [],
         listsResum: [],
         total: 0,
+        cumple: 0,
+        no_cumple: 0,
         avance: 0,
         advanceReg: [],
         provinces: [],
@@ -37,11 +39,12 @@ const appPrematuros = new Vue({
         this.dateHis();
     },
     methods: {
-        listProfessionals: function() {
+        listBateria: function() {
             $(".nominalTable").removeAttr("id");
-            $(".nominalTable").attr("id","profesional");
+            $(".nominalTable").attr("id","bateria_completa");
+            this.cumple=0; this.no_cumple=0; this.total=0;
             const getDate = new Date();
-            const currentData = { "red": "TODOS", "distrito": "TODOS", "anio": getDate.getFullYear(), "mes": getDate.getMonth() }
+            const currentData = { "red": "TODOS", "distrito": "TODOS", "anio": getDate.getFullYear(), "mes": getDate.getMonth()-1 }
             const formData = $("#formulario").serialize();
             this.red == '' ? data = currentData : data = formData;
 
@@ -52,14 +55,27 @@ const appPrematuros = new Vue({
             // else{
                 axios({
                     method: 'POST',
-                    url: 'professionals/list',
+                    url: 'newUsers/list',
                     data: data,
                 })
                 .then(response => {
-                    this.lists = response.data;
+                    this.lists = response.data[0];
                     console.log(this.lists);
+                    this.listsResum = response.data[1];
+                    this.advanceReg = response.data[2];
                     for (let i = 0; i < this.lists.length; i++) {
                         this.total++;
+                        this.lists[i].MIDE == 'CUMPLE' ? this.cumple++ : this.no_cumple++;
+                    }
+
+                    for (let j = 0; j < this.listsResum.length; j++) {
+                        var avance = (this.listsResum[j].NUMERADOR/this.listsResum[j].DENOMINADOR)*100;
+                        avance % 1 != 0 ? this.listsResum[j].AVANCE = avance.toFixed(1) : this.listsResum[j].AVANCE = avance;
+                    }
+
+                    for (let k = 0; k < this.advanceReg.length; k++) {
+                        var a = (this.advanceReg[k].NUM/this.advanceReg[k].DEN)*100;
+                        a % 1 != 0 ? this.advanceReg[k].ADVANCE = a.toFixed(1) : this.advanceReg[k].ADVANCE = a;
                     }
 
                     this.anio == '' ? this.nameYear = getDate.getFullYear() : this.nameYear = this.anio;
@@ -67,6 +83,8 @@ const appPrematuros = new Vue({
                     this.nameMonth = new Intl.DateTimeFormat('es-ES', { month: 'long'}).format( getDate.setMonth(this.mes - 1));
                     this.nameMonth = this.nameMonth.charAt(0).toUpperCase() + this.nameMonth.slice(1);
 
+                    this.avance = ((this.cumple / this.total) * 100).toFixed(1);
+                    $('.knob').val(this.avance + '%').trigger('change');
                     $('.footable-page a').filter('[data-page="0"]').trigger('click');
 
                 }).catch(e => {
@@ -87,9 +105,15 @@ const appPrematuros = new Vue({
         },
 
         dateHis: function() {
-            getDate = new Date();
-            this.date_his = getDate.toISOString().split('T')[0];
-            setTimeout(() => $('.show-tick').selectpicker('refresh'));
+            axios.post('pn')
+            .then(respuesta => {
+                getDate = new Date();
+                this.date_his = getDate.toISOString().split('T')[0];
+                setTimeout(() => $('.show-tick').selectpicker('refresh'));
+
+            }).catch(e => {
+                this.errors.push(e)
+            })
         },
 
         filtersDistricts() {
@@ -108,6 +132,25 @@ const appPrematuros = new Vue({
             })
         },
 
+        listNoCumplen() {
+            $(".nominalTable").removeAttr("id");
+            $(".nominalTable").attr("id","no_cumplen");
+            this.listCumplen = [];
+            for (let i = 0; i < this.lists.length; i++) {
+                if(this.lists[i].MIDE == 'NO'){
+                    this.listCumplen.push(this.lists[i]);
+                }
+            }
+
+            this.lists = this.listCumplen;
+            $('#demo-foo-addrow2').footable();
+            $('#demo-foo-addrow2').data('footable').redraw();
+            $('#demo-foo-filtering').data('footable').redraw();
+            $('#demo-foo-filtering').footable();
+            $('#demo-foo-addrow2').footable();
+            $('.table').footable();
+        },
+
         PrintNominal: function(){
             var red = $('#red').val();
             var dist = $('#distrito').val();
@@ -118,7 +161,7 @@ const appPrematuros = new Vue({
             red == '' ? red = "TODOS" : red;    dist == '' ? dist = "TODOS" : dist;
             anio == '' ? anio = getDate.getFullYear() : anio;     mes == '' ? mes = getDate.getMonth() : mes;
             url_ = window.location.origin + window.location.pathname + '/print?r=' + (red) + '&d=' + (dist) + '&a=' + (anio)
-            + '&m=' + (mes-1)  + '&nameMonth=' + (this.nameMonth) + '&his=' + (this.date_his);
+            + '&m=' + (mes)  + '&nameMonth=' + (this.nameMonth) + '&his=' + (this.date_his);
             window.open(url_,'_blank');
         },
     }

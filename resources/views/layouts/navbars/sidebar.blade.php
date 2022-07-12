@@ -101,7 +101,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{ url('/newUsers') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Usuarias Nuevas con Tmz de Violencia (GG-VI02)</p>
                                     </a>
@@ -123,7 +123,7 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ url('/professionals') }}" class="nav-link">
+                            <a href="{{ url('/sisCovid') }}" class="nav-link">
                                 <i class="fa fa-user-nurse nav-icon"></i>
                                 <p>Sis-Covid</p>
                             </a>
@@ -137,7 +137,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ url('/patient') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Detalle Paciente</p>
                             </a>
@@ -193,7 +193,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ url('/conventions') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Convenios de Gestión</p>
                             </a>

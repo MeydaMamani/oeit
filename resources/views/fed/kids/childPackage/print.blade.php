@@ -15,19 +15,23 @@
 <body>
     <table>
         <thead>
-            <tr><td colspan="27"></td></tr>
+            <tr><td colspan="46"></td></tr>
             <tr>
-                <td colspan="27" style="font-size: 20px; border: 3px solid #807d7d; font-weight: 500; text-align: center;">DIRESA PASCO DEIT</td>
+                <td colspan="46" style="font-size: 20px; border: 3px solid #807d7d; font-weight: 500; text-align: center;">DIRESA PASCO DEIT</td>
             </tr>
-            <tr><td colspan="27"></td></tr>
+            <tr><td colspan="46"></td></tr>
             <tr>
-                <td colspan="27" style="font-size: 18px; border: 3px solid #807d7d; font-weight: 500; text-align: center;">Paquete Niño - {{ $nameMonth }} {{ $anio }} </td>
+                {{-- @if ($type == 'indicator')
+                    <td colspan="46" style="font-size: 18px; border: 3px solid #807d7d; font-weight: 500; text-align: center;">Paquete Niño - {{ $nameMonth }} {{ $anio }} </td>
+                @else
+                    <td colspan="46" style="font-size: 18px; border: 3px solid #807d7d; font-weight: 500; text-align: center;">Paquete Niño Avance Mensual - {{ $nameMonth }} {{ $anio }} </td>
+                @endif --}}
             </tr>
-            <tr><td colspan="27"></td></tr>
+            <tr><td colspan="46"></td></tr>
             <tr>
-                <td colspan="27" style="font-size: 10px; color: #999595; font-weight: 500; border: 10px solid #999595;"><b>Fuente: </b> BD Padrón Nominal con Fecha {{ $pn }} y BD HisMinsa con fecha {{ $his }} a las 08:30 horas</td>
+                <td colspan="46" style="font-size: 10px; color: #999595; font-weight: 500; border: 10px solid #999595;"><b>Fuente: </b> BD Padrón Nominal con Fecha {{ $pn }} y BD HisMinsa con fecha {{ $his }} a las 08:30 horas</td>
             </tr>
-            <tr><td colspan="27"></td></tr>
+            <tr><td colspan="46"></td></tr>
         </thead>
         <thead>
             <tr>
@@ -81,7 +85,7 @@
         </thead>
         <tbody>
             {{-- <td><img src="{{URL::asset('/images/avartar.png')}}" /></td> --}}
-            @foreach($credMensual as $pr)
+            @foreach($childPackage as $pr)
                 <tr>
                     <td style="text-align: center; border: 3px solid #A6A6A6;">{{ $loop->iteration }}</td>
                     <td style="border: 3px solid #A6A6A6;">{{ $pr->NOMBRE_PROV }}</td>
@@ -128,7 +132,6 @@
                     <td style="text-align: center; border: 3px solid #A6A6A6;">{{ $pr->CRED10 }}</td>
                     <td style="text-align: center; border: 3px solid #A6A6A6;">{{ $pr->SUPLE10 }}</td>
                     <td style="text-align: center; border: 3px solid #A6A6A6;">{{ $pr->CRED11 }}</td>
-                    <td style="text-align: center; border: 3px solid #A6A6A6;">{{ $pr->SUPLE8 }}</td>
                     <td style="text-align: center; border: 3px solid #A6A6A6;">{{ $pr->SUPLE11 }}</td>
                 </tr>
             @endforeach

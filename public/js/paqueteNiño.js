@@ -78,7 +78,7 @@ const appPrematuros = new Vue({
             var dist = $('#distrito').val();
             var anio = $('#anio').val();
             var mes = $('#mes').val();
-            var mes = $('#type').val();
+            var type = $('#type').val();
 
             const getDate = new Date();
             red == '' ? red = "TODOS" : red;    dist == '' ? dist = "TODOS" : dist;

@@ -26,11 +26,15 @@ class TracingController extends Controller
         elseif ($red_1 == '02') { $red = 'DANIEL CARRION'; }
         elseif ($red_1 == '03') { $red = 'OXAPAMPA'; }
 
-            $nominal = DB::table('dbo.COMSOL_ARCHIVO_PLANO')
-                    ->where('anio', '2022') -> where('mes', '6') ->where('Provincia_Establecimiento', 'PASCO')
-                    ->where('Distrito_Establecimiento', 'CHAUPIMARCA') ->where('Nombre_Establecimiento', 'ULIACHIN')
+        $nominal = DB::table('dbo.COMSOL_ARCHIVO_PLANO')
+                    ->where('anio', '2022') -> where('mes', '4')
+                    ->where('Nombre_Establecimiento', 'ULIACHIN')
                     ->get();
 
         return Excel::download(new FlatFileExport($nominal, $anio), 'DEIT_PASCO ARCHIVO PLANO.xlsx');
+    }
+
+    public function indexDetailPatient() {
+        return view('tracing/PatientDetail/index');
     }
 }

@@ -36,9 +36,9 @@
                             <div class="tab-content" id="custom-tabs-four-tabContent">
                                 <div class="tab-pane fade show active" id="sospecha-violencia" role="tabpanel" aria-labelledby="sospecha-violencia-tab">
                                     <div class="col-md-12 p-0">
-                                        <div class="overlay-wrapper">
+                                        {{-- <div class="overlay-wrapper">
                                             <div class="overlay"><i class="fas fa-3x fa-sync-alt fa-spin"></i><div class="text-bold pt-2">Loading...</div></div>
-                                        </div>
+                                        </div> --}}
                                         <div class="mb-2">
                                             <span class="font-13 text-muted"><i class="fa fa-search"></i> Busqueda de Gestantes con Sospecha de Violencia - [[ nameMonthSupcion ]] [[ nameYearSupcion ]]</span>
                                         </div>

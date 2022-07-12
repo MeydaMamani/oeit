@@ -34,6 +34,6 @@ class ChildPackageExport implements FromView, ShouldAutoSize
         $his = $this->his;
         $pn = $this->pn;
         // return view("facturas.ajax-product",compact("nominal_factura"));
-        return view('fed.kids.CredMonthly.print', [ 'childPackage' => $nominal_f, 'anio' => $a, 'nameMonth' => $name, 'his' => $his, 'pn' => $pn ]);
+        return view('fed.kids.childPackage.print', [ 'childPackage' => $nominal_f, 'anio' => $a, 'nameMonth' => $name, 'his' => $his, 'pn' => $pn ]);
     }
 }
