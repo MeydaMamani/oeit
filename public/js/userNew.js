@@ -185,17 +185,17 @@ const appPrematuros = new Vue({
         sendForm: function(e){
             // var csrfmiddlewaretoken = document.getElementsByName('csrfmiddlewaretoken')[0].value
             // var body = new FormData(e.target);
-            const formData = $("#formulario2").serialize();
+            const formData = $("#formulario").serialize();
             console.log(formData);
             axios({
                 // headers: { 'X-CSRFToken': csrfmiddlewaretoken, 'Content-Type': 'multipart/form-data' },
-                method: 'PUT',
-                url: 'homologation/put/',
+                method: 'POST',
+                url: 'user/create/',
                 data: formData,
 
             }).then(response => {
                 console.log(response.data);
-                toastr.success('Actualizado correctamente', null, { "closeButton": true });
+                toastr.success('Creado correctamente', null, { "closeButton": true });
                 setInterval("location.reload()",2000);
                 setTimeout(() => $('.show-tick').selectpicker('refresh'));
             }).catch(e => {

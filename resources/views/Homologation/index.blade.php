@@ -12,7 +12,7 @@
                         <div class="col-sm-3">
                             <ol class="breadcrumb float-sm-right font-14">
                                 <li class="breadcrumb-item"><a href="#">Inicio</a></li>
-                                <li class="breadcrumb-item active"><a href="#">Homologación</a></li>
+                                <li class="breadcrumb-item active"><a href="#">Nuevo Usuario</a></li>
                             </ol>
                         </div>
                     </div>
@@ -184,7 +184,7 @@
                                 <div class="col-md-6">
                                     <div class="card">
                                         <div class="card-header bg-gray">
-                                            <h3 class="card-title">Residencia Anterior (Reniec)</h3>
+                                            <h3 class="card-title">Residencia Anterior</h3>
                                             <div class="card-tools">
                                                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                                   <i class="fas fa-minus"></i>
@@ -195,8 +195,8 @@
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label for="exampleInputEmail1" class="font-13">Región</label>
-                                                        <select class="form-control select2 show-tick" style="width: 100%;" name="REGION_ANTERIOR" id="REGION_ANTERIOR" v-model="form.REGION_ANTERIOR" @change="filtersProvinces" v-select2 disabled>
+                                                        <label for="exampleInputEmail1" class="font-13">Región (reniec)</label>
+                                                        <select class="custom-select custom-select-sm" style="width: 100%;" name="REGION_ANTERIOR" id="REGION_ANTERIOR" v-model="form.REGION_ANTERIOR" v-select2 disabled>
                                                             <option v-for="format in listDepartment" :value="format.Departamento">[[ format.Departamento ]]</option>
                                                         </select>
                                                     </div>
@@ -204,7 +204,7 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label for="exampleInputEmail1" class="font-13">Provincia</label>
-                                                        <select class="form-control select2 show-tick" style="width: 100%;" name="PROVINCIA_ANTERIOR" id="PROVINCIA_ANTERIOR" v-model="form.PROVINCIA_ANTERIOR" @change="filtersDistricts" v-select2 disabled>
+                                                        <select class="custom-select custom-select-sm" style="width: 100%;" name="PROVINCIA_ANTERIOR" id="PROVINCIA_ANTERIOR" v-model="form.PROVINCIA_ANTERIOR" disabled>
                                                             <option v-for="format in listProvinces" :value="format.Provincia">[[ format.Provincia ]]</option>
                                                         </select>
                                                     </div>
@@ -212,7 +212,7 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label for="exampleInputEmail1" class="font-13">Distrito</label>
-                                                        <select class="form-control select2 show-tick" style="width: 100%;" name="DISTRITO_ANTERIOR" id="DISTRITO_ANTERIOR" v-model="form.DISTRITO_ANTERIOR" v-select2 disabled>
+                                                        <select class="custom-select custom-select-sm" style="width: 100%;" name="DISTRITO_ANTERIOR" id="DISTRITO_ANTERIOR" v-model="form.DISTRITO_ANTERIOR" v-select2 disabled>
                                                             <option v-for="format in listDistricts" :value="format.Distrito">[[ format.Distrito ]]</option>
                                                         </select>
                                                     </div>
@@ -473,6 +473,15 @@
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1" class="font-13">Observaciones</label>
                                                 <input type="email" class="form-control form-control-sm" id="exampleInputEmail1" v-model="listColumnMonth.OBSERVACIONES_2022">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1" class="font-13">Estado</label>
+                                                <select class="custom-select custom-select-sm" style="width: 100%;" name="prov2" id="prov2">
+                                                    <option value="DNI">Activo</option>
+                                                    <option value="CE">Inactivo</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>

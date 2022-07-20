@@ -21,9 +21,8 @@
             <section class="content">
                 <div class="container-fluid">
                     <div>
-                        <form method="POST" id="formulario">
+                        <form method="POST" id="formulario" @submit.prevent="sendForm">
                             @csrf
-                            <input type="text" v-if="form.N" v-model="form.N" name="N" hidden>
                             <div class="card">
                                 <div class="card-header bg-gray">
                                     <h3 class="card-title">Datos del Paciente</h3>
@@ -400,7 +399,7 @@
                                 </div>
                             </div>
                             <div class="card-footer text-right">
-                                <button class="btn btn-success btn-sm m-1 font-14" id="search" type="button"><i class="fa fa-save"></i> Guardar</button>
+                                <button class="btn btn-success btn-sm m-1 font-14" id="search" type="submit"><i class="fa fa-save"></i> Guardar</button>
                                 <button class="btn btn-danger btn-sm m-1 font-14" type="button" id="clear2"><i class="fa fa-times"></i> Cancelar</button>
                             </div>
                         </form>

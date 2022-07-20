@@ -309,6 +309,22 @@ div#all:hover div#info {
     background: #F0B0AF !important;
 }
 
+#cred thead tr th#fields_cred3 {
+    background: #CBF0BB !important;
+}
+
+#cred thead tr th#fields_cred4 {
+    background: #F0AFEC !important;
+}
+
+#cred thead tr th#fields_cred5 {
+    background: #F0E5BB !important;
+}
+
+#cred thead tr th#fields_cred6 {
+    background: #EDF8FF !important;
+}
+
 #fields_cred_body {
     background: #f1f1c052;
 }

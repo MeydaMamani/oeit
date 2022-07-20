@@ -30,11 +30,36 @@ const appPrematuros = new Vue({
         doc: '',
         category: '',
         table: false,
+
+        Xred: false,
+        XPatient: false,
+        XCategory: false,
     },
     created: function() {
         this.filtersProv();
     },
     methods: {
+        selectXred: function(){
+            this.Xred = true
+            this.table = false
+            this.XPatient = false
+            this.XCategory = false
+        },
+
+        selectXpatient: function(){
+            this.XPatient = true
+            this.table = false
+            this.Xred = false
+            this.XCategory = false
+        },
+
+        selectXcategory: function(){
+            this.XCategory = true
+            this.table = false
+            this.XPatient = false
+            this.Xred = false
+        },
+
         listMetals: function() {
             const formData = $("#formulario").serialize();
             if (this.red == '') { toastr.error('Seleccione una Red', null, { "closeButton": true, "progressBar": true }); }

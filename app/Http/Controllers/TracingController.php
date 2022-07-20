@@ -229,6 +229,24 @@ class TracingController extends Controller
         // return redirect('/homologation');
     }
 
+    public function createUser(Request $request) {
+        $first_name = $request->APELLIDOS_NOMBRES;
+        echo $first_name;
+        // $data=array('APELLIDOS_NOMBRES'=>$first_name);
+        // DB::table('PADRON_METALES_PESADOS')->insert($data);
+        // $data = $request()->except(['_token', '_method']);
+        // echo $data;
+        // echo $request->APELLIDOS_NOMBRES;
+        // DB::table('dbo.PADRON_METALES_PESADOS')
+        //             ->where('N', $id)
+        //             ->update($data);
+
+        // $request->$request->all();
+        // $request->save();
+
+        // return redirect('/homologation');
+    }
+
     public function downloadPdf(Request $request){
         $doc = $request->doc;
         $nominal = DB::table('dbo.PADRON_METALES_PESADOS')
