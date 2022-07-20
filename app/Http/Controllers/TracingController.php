@@ -230,7 +230,7 @@ class TracingController extends Controller
     }
 
     public function createUser(Request $request) {
-        $first_name = $request->APELLIDOS_NOMBRES;
+        $first_name = $request;
         echo $first_name;
         // $data=array('APELLIDOS_NOMBRES'=>$first_name);
         // DB::table('PADRON_METALES_PESADOS')->insert($data);

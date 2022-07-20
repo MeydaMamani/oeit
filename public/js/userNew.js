@@ -195,8 +195,8 @@ const appPrematuros = new Vue({
 
             }).then(response => {
                 console.log(response.data);
-                toastr.success('Creado correctamente', null, { "closeButton": true });
-                setInterval("location.reload()",2000);
+                // toastr.success('Creado correctamente', null, { "closeButton": true });
+                // setInterval("location.reload()",2000);
                 setTimeout(() => $('.show-tick').selectpicker('refresh'));
             }).catch(e => {
                 this.errors.push(e)
