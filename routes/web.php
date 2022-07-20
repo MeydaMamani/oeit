@@ -29,4 +29,8 @@ Route::get('/homologation/printPdf', [TracingController::class, 'downloadPdf']);
 Route::get('/homologation/printExcel', [TracingController::class, 'downloaExcel']);
 
 Route::get('/user', [TracingController::class, 'indexNewUser']);
+<<<<<<< HEAD
 Route::get('/user/create', [TracingController::class, 'createUser']);
+=======
+Route::post('/user/creates', [TracingController::class, 'createUser']);
+>>>>>>> 2471e9fcc9cda25c319322174a48cbdde54ba51d
