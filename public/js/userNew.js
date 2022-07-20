@@ -190,7 +190,7 @@ const appPrematuros = new Vue({
             axios({
                 // headers: { 'X-CSRFToken': csrfmiddlewaretoken, 'Content-Type': 'multipart/form-data' },
                 method: 'POST',
-                url: 'user/create/',
+                url: 'users/creates/',
                 data: formData,
 
             }).then(response => {
