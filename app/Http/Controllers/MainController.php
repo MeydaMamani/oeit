@@ -66,12 +66,35 @@ class MainController extends Controller
         return response()->json($listUps, 200);
     }
 
-    public function datePadronNominal() {
-        // DB::connection('BDHIS_MINSA')->table('MAESTRO_HIS_ESTABLECIMIENTO')
-        $query =DB::connection('BD_PADRON_NOMINAL')->table('NOMINAL_PADRON_NOMINAL')
-                    ->select((DB::raw('MAX(FECHA_MODIFICACION_REGISTRO) AS DATE_MODIFY')))
+    public function departmentAll() {
+        $dep = DB::connection('BDHIS_MINSA')->table('MAESTRO_HIS_ESTABLECIMIENTO')
+                    ->select('Departamento')
+                    ->groupBy('Departamento')
+                    ->orderBy('Departamento', 'ASC')
                     ->get();
 
-        return response()->json($query, 200);
+        return response()->json($dep, 200);
+    }
+
+    public function provAll(Request $request) {
+        $prov = $request->id;
+        $provinces_all = DB::connection('BDHIS_MINSA')->table('MAESTRO_HIS_ESTABLECIMIENTO')
+                    ->select('Departamento', 'Provincia') ->where('Departamento', $prov)
+                    ->groupBy('Departamento') ->groupBy('Provincia')
+                    ->orderBy('Departamento', 'ASC') ->orderBy('Provincia')
+                    ->get();
+
+        return response()->json($provinces_all, 200);
+    }
+
+    public function distAll(Request $request) {
+        $dist = $request->id;
+        $distritcs_all = DB::connection('BDHIS_MINSA')->table('MAESTRO_HIS_ESTABLECIMIENTO')
+                    ->select('Departamento', 'Provincia', 'Distrito') ->where('Provincia', $dist)
+                    ->groupBy('Departamento') ->groupBy('Provincia') ->groupBy('Distrito')
+                    ->orderBy('Departamento', 'ASC') ->orderBy('Provincia') ->groupBy('Distrito')
+                    ->get();
+
+        return response()->json($distritcs_all, 200);
     }
 }
