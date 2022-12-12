@@ -10,7 +10,6 @@ use Maatwebsite\Excel\Concerns\FromView;
 use App\Exports\DiresaIndicators\Conventions\VaccineBcgHvbExport;
 use App\Exports\DiresaIndicators\Conventions\RecoveredPatientExport;
 use App\Exports\DiresaIndicators\Conventions\TwoCtrlCredExport;
-use App\Exports\DiresaIndicators\Conventions\CervicalCancerExport;
 
 class ConventionsController extends Controller
 {
@@ -898,59 +897,5 @@ class ConventionsController extends Controller
                                         DROP TABLE BDHIS_MINSA_EXTERNO_V2.dbo.CONSOL_2CTRL"));
 
 	    return Excel::download(new TwoCtrlCredExport($nominal, $anio, $request->nameMonth), 'DEIT_PASCO DOS CONTROLES CRED.xlsx');
-    }
-
-    public function printCervix(Request $request){
-        $red_1 = $request->r; $dist = $request->d;
-        $estab = $request->e; $anio = $request->a;
-
-        if ($red_1 == '01') { $red = 'PASCO'; }
-        elseif ($red_1 == '02') { $red = 'DANIEL ALCIDES CARRION'; }
-        elseif ($red_1 == '03') { $red = 'OXAPAMPA'; }
-
-        if($red_1 == 'TODOS'){
-            $nominal = DB::connection('BD_INDICADORES_CG_2022')
-                        ->table('ID_FICHA_09_NOMINAL AS A')
-                        ->orderBy('A.RED') ->orderBy('A.DISTRITO') ->orderBy('A.NOMBRE_ESTABLECIMIENTO')
-                        ->get();
-        }
-        else if($red_1 != 'TODOS' && $dist == 'TODOS'){
-            $nominal = DB::connection('BD_SIASIS')
-                        ->table('BD_SIASIS.dbo.AFILIADOS_SIS_REGION_PASCO AS A')
-                        ->select('A.DIRESA', 'A.RED', 'A.DISTRITO', 'A.RENAES', 'A.NOMBRE_ESTABLECIMIENTO', DB::raw("(COUNT(*)/2) AS 'DENOMINADOR'"),
-                        'B.NUMERADOR', 'B.NUM_IVAA', 'B.NUM_PAP', 'B.NUM_VPH')
-                        ->leftJoin('BDHIS_MINSA_EXTERNO_V2.dbo.CONSOLFINA2L_CUELLO_UTERINO AS B', 'A.RENAES', '=', 'B.Id_Establecimiento')
-                        ->where('AÑO_AFILIACION', '<=', '2021') ->where('ESTADO', 'ACTIVO') ->where('SEXO', 'F') ->whereBetween('EDAD', [25, 64])
-                        ->where('A.RED', $red)
-                        ->groupByRaw('A.DIRESA,A.RED,A.DISTRITO,A.RENAES,A.NOMBRE_ESTABLECIMIENTO,B.NUMERADOR,B.NUM_IVAA,B.NUM_PAP,B.NUM_VPH')
-                        ->orderBy('A.RED') ->orderBy('A.DISTRITO') ->orderBy('A.NOMBRE_ESTABLECIMIENTO')
-                        ->get();
-        }
-        else if($dist != 'TODOS' && $estab == 'TODOS'){
-            $nominal = DB::connection('BD_SIASIS')
-                        ->table('BD_SIASIS.dbo.AFILIADOS_SIS_REGION_PASCO AS A')
-                        ->select('A.DIRESA', 'A.RED', 'A.DISTRITO', 'A.RENAES', 'A.NOMBRE_ESTABLECIMIENTO', DB::raw("(COUNT(*)/2) AS 'DENOMINADOR'"),
-                        'B.NUMERADOR', 'B.NUM_IVAA', 'B.NUM_PAP', 'B.NUM_VPH')
-                        ->leftJoin('BDHIS_MINSA_EXTERNO_V2.dbo.CONSOLFINA2L_CUELLO_UTERINO AS B', 'A.RENAES', '=', 'B.Id_Establecimiento')
-                        ->where('AÑO_AFILIACION', '<=', '2021') ->where('ESTADO', 'ACTIVO') ->where('SEXO', 'F') ->whereBetween('EDAD', [25, 64])
-                        ->where('A.DISTRITO', $dist)
-                        ->groupByRaw('A.DIRESA,A.RED,A.DISTRITO,A.RENAES,A.NOMBRE_ESTABLECIMIENTO,B.NUMERADOR,B.NUM_IVAA,B.NUM_PAP,B.NUM_VPH')
-                        ->orderBy('A.RED') ->orderBy('A.DISTRITO') ->orderBy('A.NOMBRE_ESTABLECIMIENTO')
-                        ->get();
-        }
-        else if($dist != 'TODOS' && $estab != 'TODOS'){
-            $nominal = DB::connection('BD_SIASIS')
-                        ->table('BD_SIASIS.dbo.AFILIADOS_SIS_REGION_PASCO AS A')
-                        ->select('A.DIRESA', 'A.RED', 'A.DISTRITO', 'A.RENAES', 'A.NOMBRE_ESTABLECIMIENTO', DB::raw("(COUNT(*)/2) AS 'DENOMINADOR'"),
-                        'B.NUMERADOR', 'B.NUM_IVAA', 'B.NUM_PAP', 'B.NUM_VPH')
-                        ->leftJoin('BDHIS_MINSA_EXTERNO_V2.dbo.CONSOLFINA2L_CUELLO_UTERINO AS B', 'A.RENAES', '=', 'B.Id_Establecimiento')
-                        ->where('AÑO_AFILIACION', '<=', '2021') ->where('ESTADO', 'ACTIVO') ->where('SEXO', 'F') ->whereBetween('EDAD', [25, 64])
-                        ->where('A.NOMBRE_ESTABLECIMIENTO', $estab)
-                        ->groupByRaw('A.DIRESA,A.RED,A.DISTRITO,A.RENAES,A.NOMBRE_ESTABLECIMIENTO,B.NUMERADOR,B.NUM_IVAA,B.NUM_PAP,B.NUM_VPH')
-                        ->orderBy('A.RED') ->orderBy('A.DISTRITO') ->orderBy('A.NOMBRE_ESTABLECIMIENTO')
-                        ->get();
-        }
-
-	    return Excel::download(new CervicalCancerExport($nominal, $anio), 'DEIT_PASCO CANCER DE CUELLO UTERINO.xlsx');
     }
 }
